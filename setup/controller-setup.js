@@ -86,6 +86,9 @@ function setupControllers(app) {
 
   const muppetController = require('../muppet/muppet.controller');
   app.use('/muppet', muppetController);
+
+  const meetingAgendaController = require('../meeting-agenda/meeting-agenda.controller');
+  app.use('/meetingAgenda', meetingAgendaController);
 }
 
 module.exports = {
