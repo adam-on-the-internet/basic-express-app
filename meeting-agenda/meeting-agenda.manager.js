@@ -2,6 +2,8 @@ const mongoose = require('mongoose');
 require('./MeetingAgenda.model');
 const MeetingAgenda = mongoose.model('meetingAgenda');
 const validator = require('./meeting-agenda.validator');
+const agendaItemManager = require('./agenda-item.manager');
+const copyUtil = require('../utilities/copy.util');
 
 function getAll() {
     return new Promise((resolve, reject) => {
@@ -19,7 +21,17 @@ function getOne(id) {
         })
             .then((item) => {
                 if (item) {
-                    resolve(item);
+                    agendaItemManager.getAllForMeeting(id)
+                        .then((response) => {
+                            const meeting = copyUtil.copy(item);
+                            meeting.agendaItems = response;
+                            resolve(meeting);
+                        })
+                        .catch((err) => {
+                            reject({
+                                message: "Failed to find item"
+                            });
+                        });
                 } else {
                     reject({
                         message: "Failed to find item"

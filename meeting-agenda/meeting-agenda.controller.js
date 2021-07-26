@@ -86,6 +86,18 @@ controller.get('/item/:id', (req, res) => {
         });
 });
 
+controller.get('/item/meeting/:id', (req, res) => {
+    const id = req.params.id;
+    itemManager.getAllForMeeting(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.post('/item/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const agendaItem = req.body;
     itemManager.addOne(agendaItem)

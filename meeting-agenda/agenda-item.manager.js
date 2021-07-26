@@ -12,6 +12,15 @@ function getAll() {
     });
 }
 
+function getAllForMeeting(id) {
+    return new Promise((resolve, reject) => {
+        AgendaItem.find({meetingAgendaId: id})
+            .then((agendas) => {
+                resolve(agendas);
+            });
+    });
+}
+
 function getOne(id) {
     return new Promise((resolve, reject) => {
         AgendaItem.findOne({
@@ -109,6 +118,7 @@ function deleteOne(id) {
 
 module.exports = {
     getAll,
+    getAllForMeeting,
     addOne,
     getOne,
     deleteOne,
