@@ -44,6 +44,7 @@ function addOne(meetingAgenda) {
                 subtitle: meetingAgenda.subtitle,
                 tags: meetingAgenda.tags,
                 highlights: meetingAgenda.highlights,
+                links: meetingAgenda.links,
             })
                 .save()
                 .then((response) => {

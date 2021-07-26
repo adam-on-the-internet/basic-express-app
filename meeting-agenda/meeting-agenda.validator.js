@@ -30,6 +30,18 @@ function checkForGeneralErrors(item) {
     if (boolUtil.hasNoValue(item.type)) {
         errors.push({ text: 'Please add a type' });
     }
+    const linkMissingText = item.links && item.links.some((link) => {
+        return boolUtil.hasNoValue(link.text);
+    });
+    if (linkMissingText) {
+        errors.push({ text: 'Please add text to every link' });
+    }
+    const linkMissingURL = item.links && item.links.some((link) => {
+        return boolUtil.hasNoValue(link.url);
+    });
+    if (linkMissingURL) {
+        errors.push({ text: 'Please add a URL to every link' });
+    }
     return errors;
 }
 

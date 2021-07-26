@@ -1,5 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const genericModels = require('../utilities/generic-models.util');
+
+const linkSchema = new Schema(genericModels.linkSchemaDetails);
 
 const MeetingAgendaSchema = new Schema({
     name: {
@@ -14,7 +17,11 @@ const MeetingAgendaSchema = new Schema({
         type: String,
         required: true,
     },
-    // links {text, link}
+    links: [
+        {
+            type: linkSchema
+        }
+    ],
     tags: [
         {
             type: String
