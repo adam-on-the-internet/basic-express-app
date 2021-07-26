@@ -21,16 +21,17 @@ function checkForGeneralErrors(item) {
     if (boolUtil.hasNoValue(item.name)) {
         errors.push({ text: 'Please add a name' });
     }
-    if (boolUtil.hasNoValue(item.time)) {
-        errors.push({ text: 'Please add a time' });
+    if (boolUtil.hasNoValue(item.section)) {
+        errors.push({ text: 'Please add a section' });
     }
-    if (boolUtil.hasNoValue(item.place)) {
-        errors.push({ text: 'Please add a place' });
+    if (boolUtil.hasNoValue(item.cityText)) {
+        errors.push({ text: 'Please add city text' });
     }
-    if (boolUtil.hasNoValue(item.type)) {
-        errors.push({ text: 'Please add a type' });
+    if (boolUtil.hasNoValue(item.meetingAgendaId)) {
+        errors.push({ text: 'Please add a meeting agenda id' });
     }
-    boolUtil.validateLinks(item.links, errors);
+    boolUtil.validateLinks(item.cityAttachments, errors);
+    boolUtil.validateLinks(item.ourLinks, errors);
     return errors;
 }
 

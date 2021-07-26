@@ -6,6 +6,10 @@ const linkSchemaDetails = {
     url: {
         type: String,
         required: true,
+    },
+    details: {
+        type: String,
+        required: false,
     }
 };
 

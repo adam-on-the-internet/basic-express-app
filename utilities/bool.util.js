@@ -10,6 +10,21 @@ function isEmptyText(value) {
   return value === "";
 }
 
+function validateLinks(links, errors) {
+  const linkMissingText = links && links.some((link) => {
+    return hasNoValue(link.text);
+  });
+  if (linkMissingText) {
+    errors.push({text: 'Please add text to every link'});
+  }
+  const linkMissingURL = links && links.some((link) => {
+    return hasNoValue(link.url);
+  });
+  if (linkMissingURL) {
+    errors.push({text: 'Please add a url to every link'});
+  }
+}
+
 function collectErrors(item, fields) {
   const errors = [];
   fields.forEach((field) => {
@@ -86,6 +101,7 @@ function isEmpty(map) {
 module.exports = {
   isEmpty,
   hasBoolValue,
+  validateLinks,
   howManyHaveValue,
   anyHasValue,
   hasNoBoolValue,

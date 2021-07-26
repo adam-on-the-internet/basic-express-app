@@ -1,22 +1,11 @@
 const express = require('express');
 const controller = express.Router();
-const manager = require("./meeting-agenda.manager");
+const meetingManager = require("./meeting-agenda.manager");
+const itemManager = require("./agenda-item.manager");
 const authUtil = require('../utilities/auth.util');
 
-controller.get('/', (req, res) => {
-    manager.getAll()
-        .then((agendas) => {
-            res.send(agendas);
-        })
-        .catch((err) => {
-            res.statusCode = 500;
-            res.send(err);
-        });
-});
-
-controller.get('/:id', (req, res) => {
-    const id = req.params.id;
-    manager.getOne(id)
+controller.get('/meeting', (req, res) => {
+    meetingManager.getAll()
         .then((response) => {
             res.send(response);
         })
@@ -26,9 +15,21 @@ controller.get('/:id', (req, res) => {
         });
 });
 
-controller.post('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+controller.get('/meeting/:id', (req, res) => {
+    const id = req.params.id;
+    meetingManager.getOne(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.post('/meeting/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const meetingAgenda = req.body;
-    manager.addOne(meetingAgenda)
+    meetingManager.addOne(meetingAgenda)
         .then((response) => {
             res.send(response);
         })
@@ -38,9 +39,9 @@ controller.post('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) =>
         });
 });
 
-controller.delete('/:id', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+controller.delete('/meeting/:id', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const id = req.params.id;
-    manager.deleteOne(id)
+    meetingManager.deleteOne(id)
         .then((response) => {
             res.send(response);
         })
@@ -50,9 +51,68 @@ controller.delete('/:id', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, re
         });
 });
 
-controller.put('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+controller.put('/meeting/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const item = req.body;
-    manager.edit(item)
+    meetingManager.edit(item)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.get('/item', (req, res) => {
+    itemManager.getAll()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.get('/item/:id', (req, res) => {
+    const id = req.params.id;
+    itemManager.getOne(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.post('/item/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+    const agendaItem = req.body;
+    itemManager.addOne(agendaItem)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.delete('/item/:id', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+    const id = req.params.id;
+    itemManager.deleteOne(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.put('/item/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
+    const item = req.body;
+    itemManager.edit(item)
         .then((response) => {
             res.send(response);
         })
