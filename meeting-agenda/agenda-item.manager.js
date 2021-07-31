@@ -118,7 +118,7 @@ function deleteOne(id) {
 
 function deleteAllForMeeting(id) {
     return new Promise((resolve, reject) => {
-        AgendaItem.deleteAll({
+        AgendaItem.deleteMany({
             meetingAgendaId: id
         })
             .then(() => {
