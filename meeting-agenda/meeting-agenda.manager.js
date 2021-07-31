@@ -87,6 +87,7 @@ function edit(item) {
                         foundItem.name = item.name;
                         foundItem.place = item.place;
                         foundItem.type = item.type;
+                        foundItem.time = item.time;
                         foundItem.description = item.description;
                         foundItem.subtitle = item.subtitle;
                         foundItem.tags = item.tags;
