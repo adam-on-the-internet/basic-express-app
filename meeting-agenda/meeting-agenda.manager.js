@@ -116,8 +116,9 @@ function deleteOne(id) {
                     });
             })
             .catch((err) => {
-                res.statusCode = 500;
-                res.send(err);
+                reject({
+                    message: `Failed to run delete`
+                });
             });
     });
 }
