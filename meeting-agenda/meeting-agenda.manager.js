@@ -92,6 +92,7 @@ function edit(item) {
                         foundItem.subtitle = item.subtitle;
                         foundItem.tags = item.tags;
                         foundItem.highlights = item.highlights;
+                        foundItem.links = item.links;
 
                         foundItem.save()
                             .then((editedItem) => {
