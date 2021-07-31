@@ -104,13 +104,20 @@ function edit(item) {
 
 function deleteOne(id) {
     return new Promise((resolve, reject) => {
-        MeetingAgenda.deleteOne({
-            _id: id
-        })
-            .then(() => {
-                resolve({
-                    message: `Item with given id deleted or never existed`
-                });
+        agendaItemManager.deleteAllForMeeting(id)
+            .then((response) => {
+                MeetingAgenda.deleteOne({
+                    _id: id
+                })
+                    .then(() => {
+                        resolve({
+                            message: `Item with given id deleted or never existed`
+                        });
+                    });
+            })
+            .catch((err) => {
+                res.statusCode = 500;
+                res.send(err);
             });
     });
 }

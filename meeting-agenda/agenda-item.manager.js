@@ -116,11 +116,25 @@ function deleteOne(id) {
     });
 }
 
+function deleteAllForMeeting(id) {
+    return new Promise((resolve, reject) => {
+        AgendaItem.deleteAll({
+            meetingAgendaId: id
+        })
+            .then(() => {
+                resolve({
+                    message: `Items with meeting id deleted or never existed`
+                });
+            });
+    });
+}
+
 module.exports = {
     getAll,
     getAllForMeeting,
     addOne,
     getOne,
     deleteOne,
+    deleteAllForMeeting,
     edit,
 }
