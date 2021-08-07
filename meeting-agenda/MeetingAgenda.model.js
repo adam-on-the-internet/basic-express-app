@@ -44,6 +44,14 @@ const MeetingAgendaSchema = new Schema({
         type: String,
         required: false,
     },
+    consentStart: {
+        type: Number,
+        required: false,
+    },
+    consentEnd: {
+        type: Number,
+        required: false,
+    },
     dateAdded: {
         type: Date,
         default: Date.now

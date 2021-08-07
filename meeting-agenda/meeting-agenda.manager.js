@@ -49,6 +49,8 @@ function addOne(meetingAgenda) {
         } else {
             new MeetingAgenda({
                 name: meetingAgenda.name,
+                consentStart: meetingAgenda.consentStart,
+                consentEnd: meetingAgenda.consentEnd,
                 time: meetingAgenda.time,
                 place: meetingAgenda.place,
                 type: meetingAgenda.type,
@@ -85,6 +87,8 @@ function edit(item) {
                         });
                     } else {
                         foundItem.name = item.name;
+                        foundItem.consentEnd = item.consentEnd;
+                        foundItem.consentStart = item.consentStart;
                         foundItem.place = item.place;
                         foundItem.type = item.type;
                         foundItem.time = item.time;
