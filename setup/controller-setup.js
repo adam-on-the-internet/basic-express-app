@@ -89,6 +89,9 @@ function setupControllers(app) {
 
   const meetingAgendaController = require('../meeting-agenda/meeting-agenda.controller');
   app.use('/meetingAgenda', meetingAgendaController);
+
+  const dsmPRController = require('../dsm-press-release/dsm-press-release.controller');
+  app.use('/dsmPressRelease', dsmPRController);
 }
 
 module.exports = {
