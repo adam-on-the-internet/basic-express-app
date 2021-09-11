@@ -92,6 +92,9 @@ function setupControllers(app) {
 
   const dsmPRController = require('../dsm-press-release/dsm-press-release.controller');
   app.use('/dsmPressRelease', dsmPRController);
+
+  const dsmEventController = require('../dsm-event/dsm-event.controller');
+  app.use('/dsmEvent', dsmEventController);
 }
 
 module.exports = {

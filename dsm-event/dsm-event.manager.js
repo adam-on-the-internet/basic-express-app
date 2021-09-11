@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
-require('./DsmPressRelease.model');
-const DPR = mongoose.model('dsmPressRelease');
+require('./DsmEvent.model');
+const DE = mongoose.model('dsmEvent');
 
 function getAll() {
     return new Promise((resolve, reject) => {
-        DPR.find({})
+        DE.find({})
             .then((items) => {
                 resolve(items);
             });
@@ -13,7 +13,7 @@ function getAll() {
 
 function getOne(id) {
     return new Promise((resolve, reject) => {
-        DPR.findOne({
+        DE.findOne({
             _id: id
         })
             .then((items) => {
@@ -24,7 +24,7 @@ function getOne(id) {
 
 function getRecent() {
     return new Promise((resolve, reject) => {
-        DPR.find({})
+        DE.find({})
             .sort({discovery: -1})
             .then((items) => {
                 if (!items || items.length === 0) {
@@ -59,7 +59,7 @@ function addBatch(batch) {
 
 function deleteOne(id) {
     return new Promise((resolve, reject) => {
-        DPR.deleteOne({
+        DE.deleteOne({
             _id: id
         })
             .then(() => {
@@ -79,20 +79,22 @@ module.exports = {
 }
 
 function getItemKey(item) {
-    return item.URL;
+    return item.name + item.year + item.month + item.day;
 }
 
 function saveItems(newItems, resolve) {
-    const dprs = newItems.map(item => {
-        return new DPR({
-            URL: item.URL,
+    const des = newItems.map(item => {
+        return new DE({
+            name: item.name,
+            year: item.year,
+            month: item.month,
+            day: item.day,
             discovery: item.discovery,
-            title: item.title,
-            text: item.text,
+            time: item.time,
         });
     });
 
-    DPR.insertMany(dprs)
+    DE.insertMany(des)
         .then((result) => {
             resolve(result);
         });
