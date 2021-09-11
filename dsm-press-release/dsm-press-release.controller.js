@@ -13,12 +13,51 @@ controller.get('/', (req, res) => {
         });
 });
 
-// save batch
+controller.get('/recent', (req, res) => {
+    manager.getRecent()
+        .then((items) => {
+            res.send(items);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
 
-// get one
+controller.get('/:id', (req, res) => {
+    const id = req.params.id;
+    manager.getOne(id)
+        .then((items) => {
+            res.send(items);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
 
-// get most recent batch
+controller.post('/', (req, res) => {
+    const items = req.body;
+    manager.addBatch(items)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
 
-// delete one
+controller.delete('/:id', (req, res) => {
+    const id = req.params.id;
+    manager.deleteOne(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
 
 module.exports = controller;
