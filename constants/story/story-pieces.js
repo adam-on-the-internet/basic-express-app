@@ -1,4 +1,9 @@
 const STORY_FOR_SYNONYMS = [
+    "On {Cinema}",
+    "I Think You Should {Leave}",
+    "Curb Your {Enthusiasm}",
+    "Masters of the {Universe}",
+    "Paper Mario: The Origami {King}",
     "Army of the {Dead}",
     "{Army} of the Dead",
     "A {Series} of Unfortunate Events",
