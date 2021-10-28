@@ -18,7 +18,11 @@ const {
   orderConsumerKey,
   orderConsumerSecret,
   orderAccessToken,
-  orderAccessTokenSecret
+  orderAccessTokenSecret,
+  vmConsumerKey,
+  vmConsumerSecret,
+  vmAccessToken,
+  vmAccessTokenSecret,
 } = require('../config/env.config');
 
 const aotiCredentials = {
@@ -56,10 +60,18 @@ const questCredentials = {
   access_token_secret: questAccessTokenSecret
 };
 
+const vmCredentials = {
+  consumer_key: vmConsumerKey,
+  consumer_secret: vmConsumerSecret,
+  access_token: vmAccessToken,
+  access_token_secret: vmAccessTokenSecret
+};
+
 module.exports = {
   aotiCredentials,
   storyCredentials,
   clueCredentials,
   orderCredentials,
   questCredentials,
+  vmCredentials,
 };

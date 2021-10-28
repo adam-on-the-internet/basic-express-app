@@ -6,6 +6,7 @@ const {
     clueCredentials,
     orderCredentials,
     questCredentials,
+    vmCredentials,
 } = require("../config/twit.config");
 
 let twitConnection;
@@ -32,8 +33,7 @@ function makeSparksTweet(message) {
 }
 
 function makeVMTweet(message) {
-    console.log("tweet: " + message);
-    // makeTweet(message, vmCredentials);
+    makeTweet(message, vmCredentials);
 }
 
 function makeClueTweet(message) {

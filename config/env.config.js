@@ -18,6 +18,10 @@ let clueConsumerKey;
 let clueConsumerSecret;
 let clueAccessToken;
 let clueAccessTokenSecret;
+let vmConsumerKey;
+let vmConsumerSecret;
+let vmAccessToken;
+let vmAccessTokenSecret;
 
 const port = process.env.PORT || 5000;
 
@@ -53,6 +57,11 @@ if (runningProd) {
   orderAccessToken = process.env.ORDER_ACCESS_TOKEN;
   orderAccessTokenSecret = process.env.ORDER_ACCESS_TOKEN_SECRET;
 
+  vmConsumerKey = process.env.VM_CONSUMER_KEY;
+  vmConsumerSecret = process.env.VM_CONSUMER_SECRET;
+  vmAccessToken = process.env.VM_ACCESS_TOKEN;
+  vmAccessTokenSecret = process.env.VM_ACCESS_TOKEN_SECRET;
+
   test = process.env.TEST;
 } else {
   try {
@@ -82,6 +91,10 @@ if (runningProd) {
       ORDER_CONSUMER_SECRET,
       ORDER_ACCESS_TOKEN,
       ORDER_ACCESS_TOKEN_SECRET,
+      VM_CONSUMER_KEY,
+      VM_CONSUMER_SECRET,
+      VM_ACCESS_TOKEN,
+      VM_ACCESS_TOKEN_SECRET,
       TEST
     } = require("../local.env");
 
@@ -115,6 +128,12 @@ if (runningProd) {
     orderConsumerSecret = ORDER_CONSUMER_SECRET;
     orderAccessToken = ORDER_ACCESS_TOKEN;
     orderAccessTokenSecret = ORDER_ACCESS_TOKEN_SECRET;
+
+    vmConsumerKey = VM_CONSUMER_KEY;
+    vmConsumerSecret = VM_CONSUMER_SECRET;
+    vmAccessToken = VM_ACCESS_TOKEN;
+    vmAccessTokenSecret = VM_ACCESS_TOKEN_SECRET;
+
     test = TEST;
   }
   catch (e) {
@@ -152,5 +171,9 @@ module.exports = {
   questConsumerSecret,
   questAccessToken,
   questAccessTokenSecret,
+  vmConsumerKey,
+  vmConsumerSecret,
+  vmAccessToken,
+  vmAccessTokenSecret,
   test: test
 };
