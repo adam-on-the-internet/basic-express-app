@@ -73,7 +73,7 @@ function getTweetForShows(shows) {
         }
         lineup += act;
     })
-    return `On this day (${show.month} ${show.date}) in ${show.year} at the Vaudeville Mews: ${lineup} (showtime at ${show.time})`;
+    return `This day (${show.month} ${show.date}, ${show.year} @ ${show.time}) at the Vaudeville Mews: ${lineup}`;
 }
 
 module.exports = {
