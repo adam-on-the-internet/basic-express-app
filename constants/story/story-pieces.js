@@ -1,4 +1,11 @@
 const STORY_FOR_SYNONYMS = [
+    "The {Last} of Us",
+    "{Blood}borne",
+    "{Paper} Mario",
+    "Metroid {Fusion}",
+    "Ring Fit {Adventure}",
+    "Doom {Patrol}",
+    "{Doom} Patrol",
     "On {Cinema}",
     "I Think You Should {Leave}",
     "Curb Your {Enthusiasm}",
