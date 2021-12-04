@@ -1,4 +1,9 @@
 const STORY_FOR_SYNONYMS = [
+    "{Super} Monkey Ball",
+    "Super {Monkey} Ball",
+    "Super Monkey {Ball}",
+    "The {Forgotten} City",
+    "The Forgotten {City}",
     "The {Last} of Us",
     "{Blood}borne",
     "{Paper} Mario",
