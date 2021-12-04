@@ -24,6 +24,21 @@ controller.get('/today', async (req, res) => {
     }
 });
 
+controller.get('/today/showTime/:showTime', async (req, res) => {
+    try {
+        const showTime = req.params.showTime.toUpperCase();
+        const shows = await vmArchiveManager.getShowsToday();
+        const matchingShows = shows.filter(show => {
+            return show.showTime === showTime;
+        });
+        tweetShow(req.query.tweet, matchingShows);
+        res.send(matchingShows);
+    } catch (err) {
+        res.statusCode = 500;
+        res.send(err);
+    }
+});
+
 controller.get('/act/:act', async (req, res) => {
     try {
         const act = req.params.act.replace("_", " ");

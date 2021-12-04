@@ -31,6 +31,9 @@ function getShowsToday() {
         try {
             const today = new Date();
             const fittingShows = await getShowsForDate(today.getDate(), today.getUTCMonth());
+            fittingShows.forEach((show) => {
+                populateShowTime(show);
+            });
             resolve(fittingShows);
         } catch (err) {
             reject(err);
@@ -63,17 +66,12 @@ function getShows() {
 
 function getTweetForShows(shows) {
     const show = randomUtil.pickRandom(shows);
-    let lineup = "";
-    show.acts.forEach((act, i) => {
-        if (i > 0) {
-            lineup += ", ";
-            if (i === show.acts.length - 1) {
-                lineup += "and ";
-            }
-        }
-        lineup += act;
-    })
-    return `This day (${show.month} ${show.date}, ${show.year} @ ${show.time}) at the Vaudeville Mews: ${lineup}`;
+    const shortenedDate = getShortenedDate(show);
+    const intro = `Today (${shortenedDate} @ ${show.time}) at the Vaudeville Mews: `;
+    const MAX_TWEET_LENGTH = 280;
+    const maxLineupLength = MAX_TWEET_LENGTH - intro.length;
+    const lineup = getLineup(show, maxLineupLength);
+    return `${intro}${lineup}`;
 }
 
 module.exports = {
@@ -128,4 +126,65 @@ async function getShowsForActName(searchAct) {
                 return act.toLowerCase().includes(searchAct.toLowerCase());
             })
         });
+}
+
+function populateShowTime(show) {
+    const fullDate = getTime(show.fullDate);
+    const hour = getShowHour(fullDate);
+    show.showTime = getShowTime((hour));
+}
+
+function getTime(fullDate) {
+    return fullDate.split("at")[1].trim();
+}
+
+function getShowHour(time) {
+    const hour = Number(time.split(":")[0]);
+    const isPm = time.includes("pm");
+    return isPm ? hour + 12 : hour;
+}
+
+function getShowTime(hour) {
+    if (hour >= 21) {
+        // 9pm+ late (21+)
+        return "LATE";
+    } else if (hour >= 17) {
+        // 5pm+ early (17+)
+        return "EARLY";
+    } else {
+        return "SPECIAL";
+    }
+}
+
+function getShortenedDate(show) {
+    const monthName = show.month.toLowerCase();
+    const MONTHS = [
+        "january", "february", "march", "april",
+        "may", "june", "july", "august",
+        "september", "october", "november", "december"
+    ];
+    const monthNumber = MONTHS.indexOf(monthName) + 1;
+    return `${monthNumber}-${show.date}-${show.year}`;
+}
+
+function getLineup(show, maxLineupLength) {
+    let lineup = "";
+    show.acts.forEach((act, i) => {
+        const notFirst = i > 0;
+        let actString = "";
+        if (notFirst) {
+            actString += ", ";
+        }
+        actString += act;
+        const MORE = "...";
+        if (lineup.length + actString.length <= maxLineupLength) {
+            lineup += actString;
+        } else if (lineup.length + MORE <= maxLineupLength) {
+            console.log("Cannot fit act, using '...'");
+            lineup += MORE;
+        } else {
+            console.log("Cannot fit act, unable to use '...'");
+        }
+    })
+    return lineup;
 }

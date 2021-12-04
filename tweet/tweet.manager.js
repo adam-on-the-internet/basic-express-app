@@ -51,7 +51,7 @@ module.exports = {
 }
 
 function makeTweet(message, twitterCredentials) {
-    console.log("TWEET: " + message);
+    console.log(`TWEET (${message.length} chars): ${message}`);
     if (test === "true") {
         return;
     }
