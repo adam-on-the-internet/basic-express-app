@@ -67,7 +67,9 @@ function getShows() {
 function getTweetForShows(shows) {
     const show = randomUtil.pickRandom(shows);
     const shortenedDate = getShortenedDate(show);
-    const intro = `Today (${shortenedDate} @ ${show.time}) at the Vaudeville Mews: `;
+    const timeOfDay = show.showTime === "LATE" ? "Tonight" : "Today";
+    const soldOut = show.soldOut ? "SOLD OUT " : "";
+    const intro = `${timeOfDay} (${show.time} ${shortenedDate}) at the Vaudeville Mews: ${soldOut}`;
     const MAX_TWEET_LENGTH = 280;
     const maxLineupLength = MAX_TWEET_LENGTH - intro.length;
     const lineup = getLineup(show, maxLineupLength);
