@@ -140,8 +140,8 @@ function getTime(fullDate) {
 
 function getShowHour(time) {
     const hour = Number(time.split(":")[0]);
-    const isPm = time.includes("pm");
-    return isPm ? hour + 12 : hour;
+    const addTwelve = time.includes("pm") && hour !== 12;
+    return addTwelve ? hour + 12 : hour;
 }
 
 function getShowTime(hour) {
