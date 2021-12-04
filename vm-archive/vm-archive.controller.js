@@ -65,10 +65,10 @@ controller.get('/month/:month/date/:date', async (req, res) => {
 module.exports = controller;
 
 function tweetShow(tweetParam, shows) {
-    if (tweetParam && tweetParam.toUpperCase() === "TRUE") {
-        if (shows.length > 0) {
-            const tweet = vmArchiveManager.getTweetForShows(shows);
-            tweetManager.makeVMTweet(tweet);
-        }
+    const shouldTweet = tweetParam && tweetParam.toUpperCase() === "TRUE";
+    const hasShows = shows.length > 0;
+    if (shouldTweet && hasShows) {
+        const tweet = vmArchiveManager.getTweetForShows(shows);
+        tweetManager.makeVMTweet(tweet);
     }
 }
