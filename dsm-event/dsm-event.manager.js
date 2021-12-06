@@ -91,6 +91,11 @@ function saveItems(newItems, resolve) {
             day: item.day,
             discovery: item.discovery,
             time: item.time,
+            duration: item.duration,
+            detail: item.detail,
+            contactName: item.contactName,
+            contactEmail: item.contactEmail,
+            contactPhone: item.contactPhone,
         });
     });
 
