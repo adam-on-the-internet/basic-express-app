@@ -96,6 +96,7 @@ function saveItems(newItems, resolve) {
             contactName: item.contactName,
             contactEmail: item.contactEmail,
             contactPhone: item.contactPhone,
+            category: item.category
         });
     });
 
