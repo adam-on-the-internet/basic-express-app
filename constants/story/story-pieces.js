@@ -1,4 +1,10 @@
 const STORY_FOR_SYNONYMS = [
+    "Wario {Land}",
+    "Wario Land: {Shake} It",
+    "Wario{ware}",
+    "{Station} Eleven",
+    "{Kingdom} Hearts",
+    "Kingdom {Hearts}",
     "{Super} Monkey Ball",
     "Super {Monkey} Ball",
     "Super Monkey {Ball}",
