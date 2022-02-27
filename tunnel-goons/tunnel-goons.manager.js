@@ -14,7 +14,6 @@ module.exports = {
     makeOneRandom,
 }
 
-// TODO allow manual options
 function generateTunnelGoon() {
     // variable starter stats
     const firstName = randomUtil.pickRandom(NameConstants.FIRSTNAMES);
@@ -24,7 +23,7 @@ function generateTunnelGoon() {
     const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
     const cloak = `${cloakColor} cloak`;
     const choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
-    const playerName = "Me";
+    const playerName = "Not Provided";
 
     // consistent starter stats
     const startingLevel = 1;
@@ -77,38 +76,39 @@ function resolveRandomTrait(availableTraits, traitName, goon) {
 
     const trait = randomUtil.pickRandom(availableTraits);
 
-    // add Trait Text
     let detailsText = "";
+
+    // handle Item
     if (trait.item) {
-        detailsText += trait.item;
+        if (trait.item === "An item of the player's choice") {
+            const defaultItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
+            detailsText += trait.item + " [example: " + defaultItem + "]";
+            goon.items.push(defaultItem);
+        } else {
+            detailsText += trait.item;
+            goon.items.push(trait.item);
+        }
     }
+
+    // handle Stat
     if (trait.stat) {
         if (detailsText !== "") {
             detailsText += ", ";
         }
         if (trait.stat === "B") {
+            goon.brute += 1;
             detailsText += "1 Brute"
         } else if (trait.stat === "S") {
             detailsText += "1 Skulker";
+            goon.skulker += 1;
         } else if (trait.stat === "E") {
             detailsText += "1 Erudite";
+            goon.erudite += 1;
         }
     }
+
+    // finish by resolving Text
     const fullDetailsText = detailsText === "" ? "" : ` (${detailsText})`;
     const fullTraitText = traitName + ": " + trait.text + fullDetailsText;
     goon.traits.push(fullTraitText);
-
-    // resolve Trait Stat
-    if (trait.stat === "B") {
-        goon.brute += 1;
-    } else if (trait.stat === "S") {
-        goon.skulker += 1;
-    } else if (trait.stat === "E") {
-        goon.erudite += 1;
-    }
-
-    // resolve Trait Item
-    if (trait.item) {
-        goon.items.push(trait.item);
-    }
 }

@@ -66,7 +66,7 @@ const WARTIME = [
     {
         code: 6,
         text: "Profiteered",
-        item: "_item of player choice_",
+        item: "An item of the player's choice",
     },
 ];
 
