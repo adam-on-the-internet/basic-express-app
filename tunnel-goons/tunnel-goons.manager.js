@@ -2,62 +2,72 @@ const randomUtil = require("../utilities/random.util");
 const TunnelGoonsConstants = require("./constants");
 const NameConstants = require("../constants/words/names")
 
-async function makeOneRandom() {
+async function makeOne(options) {
     try {
-        return generateTunnelGoon();
+        return generateTunnelGoon(options);
     } catch (error) {
         console.error(error);
     }
 }
 
 module.exports = {
-    makeOneRandom,
+    makeOne,
 }
 
-function generateTunnelGoon() {
-    // variable starter stats
+function generateDefaultTunnelGoon() {
     const firstName = randomUtil.pickRandom(NameConstants.FIRSTNAMES);
     const lastName = randomUtil.pickRandom(NameConstants.LASTNAMES);
-    const characterName = `${firstName} ${lastName}`;
     const portrait = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
-    const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
-    const cloak = `${cloakColor} cloak`;
-    const choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
+    const characterName = `${firstName} ${lastName}`;
     const playerName = "Not Provided";
-
-    // consistent starter stats
     const startingLevel = 1;
     const startingHealthPoints = 10;
     const startingInventoryScore = 8;
-    const brute = 0;
-    const skulker = 0;
-    const erudite = 0;
-    const items = [
+    const startingItems = [
         "2 rations",
-        cloak,
-        choiceItem
     ];
     const traits = [];
     const notes = [];
-
-    const tunnelGoon = {
+    return {
         characterName,
         playerName,
+        portrait,
         level: startingLevel,
+        brute: 0,
+        skulker: 0,
+        erudite: 0,
         maxHealthPoints: startingHealthPoints,
         currentHealthPoints: startingHealthPoints,
         maxInventoryScore: startingInventoryScore,
-        currentInventoryScore: items.length,
-        brute: brute,
-        skulker: skulker,
-        erudite: erudite,
-        portrait,
-        items,
+        currentInventoryScore: startingItems.length,
+        items: startingItems,
         traits,
         notes,
-        isGoon: true,
         createdDate: new Date(),
     };
+}
+
+function generateTunnelGoon(options) {
+    const tunnelGoon = generateDefaultTunnelGoon();
+
+    if (options) {
+        if (options.playerName) {
+            tunnelGoon.playerName = options.playerName;
+        }
+        if (options.characterName) {
+            tunnelGoon.characterName = options.characterName;
+        }
+        if (options.portrait) {
+            tunnelGoon.portrait = options.portrait;
+        }
+    }
+
+    // variable starter stats
+    const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
+    const cloak = `${cloakColor} cloak`;
+    const choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
+    tunnelGoon.items.push(cloak);
+    tunnelGoon.items.push(choiceItem);
 
     // roll for random traits
     resolveRandomTrait(TunnelGoonsConstants.CHILDHOODS, "Childhood", tunnelGoon);
