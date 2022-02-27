@@ -3,51 +3,7 @@ const TunnelGoonsConstants = require("./constants");
 
 async function makeOneRandom() {
     try {
-        const portrait = "https://opengameart.org/sites/default/files/trappedmonster-003.png";
-        const characterName = "Goony McGoonface";
-        const playerName = "Me";
-        const startingLevel = 1;
-        const startingHealthPoints = 10;
-        const startingInventoryScore = 8;
-        const brute = 0;
-        const skulker = 0;
-        const erudite = 0;
-        const startingItems = [
-            "2 rations",
-            "_color of player choice_ cloak",
-            "_item of player choice_"
-        ];
-        const items = [
-            ...startingItems,
-        ];
-        const traits = [];
-        const notes = [];
-
-        const goon = {
-            characterName,
-            playerName,
-            level: startingLevel,
-            maxHealthPoints: startingHealthPoints,
-            currentHealthPoints: startingHealthPoints,
-            maxInventoryScore: startingInventoryScore,
-            currentInventoryScore: items.length,
-            brute: brute,
-            skulker: skulker,
-            erudite: erudite,
-            portrait,
-            items,
-            traits,
-            notes,
-            isGoon: true,
-            createdDate: new Date(),
-        };
-
-        resolveRandomTrait(TunnelGoonsConstants.CHILDHOODS, "Childhood", goon);
-        resolveRandomTrait(TunnelGoonsConstants.PROFESSIONS, "Profession", goon);
-        resolveRandomTrait(TunnelGoonsConstants.WARTIME, "During the War", goon);
-
-        goon.currentInventoryScore = goon.items.length;
-        return goon;
+        return generateTunnelGoon();
     } catch (error) {
         console.error(error);
     }
@@ -55,6 +11,61 @@ async function makeOneRandom() {
 
 module.exports = {
     makeOneRandom,
+}
+
+// TODO allow manual options
+function generateTunnelGoon() {
+    // variable starter stats
+    // TODO pick random name
+    const characterName = "Goony McGoonface";
+    const portrait = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
+    const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
+    const cloak = `${cloakColor} cloak`;
+    const choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
+    const playerName = "Me";
+
+    // consistent starter stats
+    const startingLevel = 1;
+    const startingHealthPoints = 10;
+    const startingInventoryScore = 8;
+    const brute = 0;
+    const skulker = 0;
+    const erudite = 0;
+    const items = [
+        "2 rations",
+        cloak,
+        choiceItem
+    ];
+    const traits = [];
+    const notes = [];
+
+    const tunnelGoon = {
+        characterName,
+        playerName,
+        level: startingLevel,
+        maxHealthPoints: startingHealthPoints,
+        currentHealthPoints: startingHealthPoints,
+        maxInventoryScore: startingInventoryScore,
+        currentInventoryScore: items.length,
+        brute: brute,
+        skulker: skulker,
+        erudite: erudite,
+        portrait,
+        items,
+        traits,
+        notes,
+        isGoon: true,
+        createdDate: new Date(),
+    };
+
+    // roll for random traits
+    resolveRandomTrait(TunnelGoonsConstants.CHILDHOODS, "Childhood", tunnelGoon);
+    resolveRandomTrait(TunnelGoonsConstants.PROFESSIONS, "Profession", tunnelGoon);
+    resolveRandomTrait(TunnelGoonsConstants.WARTIME, "During the War", tunnelGoon);
+
+    // finalize settings
+    tunnelGoon.currentInventoryScore = tunnelGoon.items.length;
+    return tunnelGoon;
 }
 
 function resolveRandomTrait(availableTraits, traitName, goon) {

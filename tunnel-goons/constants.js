@@ -127,10 +127,16 @@ const GENERIC_ITEMS = [
     "Disguise",
 ];
 
+// TODO provide more portraits
+const PORTRAITS = [
+    "https://opengameart.org/sites/default/files/trappedmonster-003.png",
+];
+
 module.exports = {
     PROFESSIONS,
     WARTIME,
     CHILDHOODS,
     CLOAK_COLORS,
     GENERIC_ITEMS,
+    PORTRAITS,
 };
