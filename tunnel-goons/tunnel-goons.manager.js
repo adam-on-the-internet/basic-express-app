@@ -1,5 +1,6 @@
 const randomUtil = require("../utilities/random.util");
 const TunnelGoonsConstants = require("./constants");
+const NameConstants = require("../constants/words/names")
 
 async function makeOneRandom() {
     try {
@@ -16,8 +17,9 @@ module.exports = {
 // TODO allow manual options
 function generateTunnelGoon() {
     // variable starter stats
-    // TODO pick random name
-    const characterName = "Goony McGoonface";
+    const firstName = randomUtil.pickRandom(NameConstants.FIRSTNAMES);
+    const lastName = randomUtil.pickRandom(NameConstants.LASTNAMES);
+    const characterName = `${firstName} ${lastName}`;
     const portrait = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
     const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
     const cloak = `${cloakColor} cloak`;

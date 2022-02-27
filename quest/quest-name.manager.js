@@ -1,5 +1,6 @@
 const randomManager = require("../random/random.manager");
 const nameyConnector = require("../api-connector/namey.connector");
+const NameConstants = require("../constants/words/names")
 
 const randomUtil = require('../utilities/random.util');
 const stringUtil = require('../utilities/string.util');
@@ -20,7 +21,7 @@ async function getRandomHeroName() {
         const commonNames = await nameyConnector.findCommonNames(1, false);
         return randomUtil.pickRandom(rareNames.concat(commonNames));
     } catch (error) {
-        const defaultNames = ["Tom", "Flom", "Glom", "Trish", "Felicia"];
+        const defaultNames = NameConstants.FIRSTNAMES;
         return randomUtil.pickRandom(defaultNames);
         console.error(error);
     }

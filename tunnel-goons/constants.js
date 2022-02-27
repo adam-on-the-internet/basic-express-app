@@ -127,9 +127,19 @@ const GENERIC_ITEMS = [
     "Disguise",
 ];
 
-// TODO provide more portraits
 const PORTRAITS = [
     "https://opengameart.org/sites/default/files/trappedmonster-003.png",
+    "https://opengameart.org/sites/default/files/koboldwizard-003_0.png",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_1.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_2.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_3.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_4.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_5.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_6.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_7.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_8.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_9.PNG",
+    "https://blissful-newton-edf9e2.netlify.app/assets/random-monsters/monster_10.PNG",
 ];
 
 module.exports = {
