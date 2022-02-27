@@ -26,6 +26,30 @@ const DsmEventSchema = new Schema({
         type: String,
         required: false,
     },
+    duration: {
+        type: String,
+        required: false,
+    },
+    detail: {
+        type: String,
+        required: false,
+    },
+    contactName: {
+        type: String,
+        required: false,
+    },
+    contactEmail: {
+        type: String,
+        required: false,
+    },
+    contactPhone: {
+        type: String,
+        required: false,
+    },
+    category: {
+        type: String,
+        required: true,
+    }
 });
 
 mongoose.model('dsmEvent', DsmEventSchema);
