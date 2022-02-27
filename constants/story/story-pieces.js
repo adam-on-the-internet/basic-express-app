@@ -1,4 +1,10 @@
 const STORY_FOR_SYNONYMS = [
+    "The Search for {Planet} X",
+    "The {Search} for Planet X",
+    "Elden {Ring}",
+    "{Hollow} Knight",
+    "Hollow {Knight}",
+    "What We Do in the {Shadows}",
     "Wario {Land}",
     "Wario Land: {Shake} It",
     "Wario{ware}",
