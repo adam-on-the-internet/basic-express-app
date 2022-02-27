@@ -17,9 +17,9 @@ module.exports = {
 function generateDefaultTunnelGoon() {
     const firstName = randomUtil.pickRandom(NameConstants.FIRSTNAMES);
     const lastName = randomUtil.pickRandom(NameConstants.LASTNAMES);
-    const portrait = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
+    const portraitURL = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
     const characterName = `${firstName} ${lastName}`;
-    const playerName = "Not Provided";
+    const playerName = "N/A";
     const startingLevel = 1;
     const startingHealthPoints = 10;
     const startingInventoryScore = 8;
@@ -31,7 +31,7 @@ function generateDefaultTunnelGoon() {
     return {
         characterName,
         playerName,
-        portrait,
+        portraitURL,
         level: startingLevel,
         brute: 0,
         skulker: 0,
@@ -50,6 +50,13 @@ function generateDefaultTunnelGoon() {
 function generateTunnelGoon(options) {
     const tunnelGoon = generateDefaultTunnelGoon();
 
+    let cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
+    let choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
+    let childhoodCode = null;
+    let professionCode = null;
+    let duringTheWarCode = null;
+
+    // handle manual override options
     if (options) {
         if (options.playerName) {
             tunnelGoon.playerName = options.playerName;
@@ -57,35 +64,42 @@ function generateTunnelGoon(options) {
         if (options.characterName) {
             tunnelGoon.characterName = options.characterName;
         }
-        if (options.portrait) {
-            tunnelGoon.portrait = options.portrait;
+        if (options.portraitURL) {
+            tunnelGoon.portraitURL = options.portraitURL;
+        }
+        if (options.cloakColor) {
+            cloakColor = options.cloakColor;
+        }
+        if (options.choiceItem) {
+            choiceItem = options.choiceItem;
+        }
+        if (options.childhoodCode) {
+            childhoodCode = options.childhoodCode;
+        }
+        if (options.professionCode) {
+            professionCode = options.professionCode;
+        }
+        if (options.duringTheWarCode) {
+            duringTheWarCode = options.duringTheWarCode;
         }
     }
 
     // variable starter stats
-    const cloakColor = randomUtil.pickRandom(TunnelGoonsConstants.CLOAK_COLORS);
     const cloak = `${cloakColor} cloak`;
-    const choiceItem = randomUtil.pickRandom(TunnelGoonsConstants.GENERIC_ITEMS);
     tunnelGoon.items.push(cloak);
     tunnelGoon.items.push(choiceItem);
 
     // roll for random traits
-    resolveRandomTrait(TunnelGoonsConstants.CHILDHOODS, "Childhood", tunnelGoon);
-    resolveRandomTrait(TunnelGoonsConstants.PROFESSIONS, "Profession", tunnelGoon);
-    resolveRandomTrait(TunnelGoonsConstants.WARTIME, "During the War", tunnelGoon);
+    resolveRandomTrait(TunnelGoonsConstants.CHILDHOODS, "Childhood", childhoodCode, tunnelGoon);
+    resolveRandomTrait(TunnelGoonsConstants.PROFESSIONS, "Profession", professionCode, tunnelGoon);
+    resolveRandomTrait(TunnelGoonsConstants.DURING_THE_WAR, "During the War", duringTheWarCode, tunnelGoon);
 
     // finalize settings
     tunnelGoon.currentInventoryScore = tunnelGoon.items.length;
     return tunnelGoon;
 }
 
-function resolveRandomTrait(availableTraits, traitName, goon) {
-    if (!availableTraits || !traitName || availableTraits.length === 0) {
-        return;
-    }
-
-    const trait = randomUtil.pickRandom(availableTraits);
-
+function applyTrait(trait, goon, traitName) {
     let detailsText = "";
 
     // handle Item
@@ -121,4 +135,25 @@ function resolveRandomTrait(availableTraits, traitName, goon) {
     const fullDetailsText = detailsText === "" ? "" : ` (${detailsText})`;
     const fullTraitText = traitName + ": " + trait.text + fullDetailsText;
     goon.traits.push(fullTraitText);
+}
+
+function resolveRandomTrait(availableTraits, traitName, overrideCode, goon) {
+    if (!availableTraits || !traitName || availableTraits.length === 0) {
+        return;
+    }
+
+    let trait = randomUtil.pickRandom(availableTraits);
+    if (overrideCode) {
+        const selectedTrait = availableTraits.find((searchTrait) => {
+            return overrideCode && searchTrait.code &&
+                overrideCode.toString() === searchTrait.code.toString();
+        });
+        if (selectedTrait) {
+            trait = selectedTrait;
+        } else {
+            console.log("Invalid Override Code Given");
+        }
+    }
+
+    applyTrait(trait, goon, traitName);
 }

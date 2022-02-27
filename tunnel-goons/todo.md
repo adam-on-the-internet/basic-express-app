@@ -1,6 +1,5 @@
 # TODO
 
-- Create one, manual
 - Save goons
 - Retrieve goons
 - Update goons

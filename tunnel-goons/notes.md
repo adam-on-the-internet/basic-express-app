@@ -1,5 +1,16 @@
 # Tunnel Goons
 
+## Options
+
+- characterName
+- playerName
+- portraitURL
+- cloakColor
+- choiceItem
+- duringTheWarCode
+- childhoodCode
+- professionCode
+
 ## Character Creation
 
 ### Overview

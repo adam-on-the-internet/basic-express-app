@@ -37,7 +37,7 @@ const PROFESSIONS = [
     },
 ];
 
-const WARTIME = [
+const DURING_THE_WAR = [
     {
         code: 1,
         text: "Join the militia",
@@ -144,7 +144,7 @@ const PORTRAITS = [
 
 module.exports = {
     PROFESSIONS,
-    WARTIME,
+    DURING_THE_WAR,
     CHILDHOODS,
     CLOAK_COLORS,
     GENERIC_ITEMS,
