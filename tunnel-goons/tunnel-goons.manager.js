@@ -48,6 +48,127 @@ async function makeOne(options) {
     });
 }
 
+function edit(tunnelGoon) {
+    return new Promise((resolve, reject) => {
+        const errors = checkForErrors(tunnelGoon);
+        if (errors.length > 0) {
+            reject(errors);
+        } else {
+            const id = tunnelGoon._id;
+            TunnelGoon.findOne({
+                _id: id
+            })
+                .then((found) => {
+                    if (!found) {
+                        reject({
+                            message: `Failed to find tunnel goon`
+                        });
+                    } else {
+                        found.characterName = tunnelGoon.characterName;
+                        found.playerName = tunnelGoon.playerName;
+                        found.portraitURL = tunnelGoon.portraitURL;
+                        found.level = tunnelGoon.level;
+                        found.brute = tunnelGoon.brute;
+                        found.skulker = tunnelGoon.skulker;
+                        found.erudite = tunnelGoon.erudite;
+                        found.maxHealthPoints = tunnelGoon.maxHealthPoints;
+                        found.currentHealthPoints = tunnelGoon.currentHealthPoints;
+                        found.maxInventoryScore = tunnelGoon.maxInventoryScore;
+                        found.items = tunnelGoon.items;
+                        found.traits = tunnelGoon.traits;
+                        found.notes = tunnelGoon.notes;
+                        found.createdDate = tunnelGoon.createdDate;
+
+                        found.save()
+                            .then((response) => {
+                                resolve(polishOne(response));
+                            });
+                    }
+                });
+        }
+    });
+}
+
+function upOneLevel(id, classScore, bonusScore) {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.findOne({
+            _id: id
+        })
+            .then((found) => {
+                if (!found) {
+                    reject({
+                        message: `Failed to find tunnel goon`
+                    });
+                } else {
+                    found.level += 1;
+
+                    if (classScore && classScore.toLowerCase() === "brute") {
+                        found.brute += 1;
+                    } else if (classScore && classScore.toLowerCase() === "skulker") {
+                        found.skulker += 1;
+                    } else if (classScore && classScore.toLowerCase() === "erudite") {
+                        found.erudite += 1;
+                    }
+
+                    if (bonusScore && classScore.toLowerCase() === "health") {
+                        found.maxHealthPoints += 1;
+                    } else if (bonusScore && bonusScore.toLowerCase() === "inventory") {
+                        found.maxInventoryScore += 1;
+                    }
+
+                    found.save()
+                        .then((response) => {
+                            resolve(polishOne(response));
+                        });
+                }
+            });
+    });
+}
+
+function addNote(id, note) {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.findOne({
+            _id: id
+        })
+            .then((found) => {
+                if (!found) {
+                    reject({
+                        message: `Failed to find tunnel goon`
+                    });
+                } else {
+                    found.notes.push(note);
+
+                    found.save()
+                        .then((response) => {
+                            resolve(polishOne(response));
+                        });
+                }
+            });
+    });
+}
+
+function addItem(id, item) {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.findOne({
+            _id: id
+        })
+            .then((found) => {
+                if (!found) {
+                    reject({
+                        message: `Failed to find tunnel goon`
+                    });
+                } else {
+                    found.items.push(item);
+
+                    found.save()
+                        .then((response) => {
+                            resolve(polishOne(response));
+                        });
+                }
+            });
+    });
+}
+
 function deleteOne(id) {
     return new Promise((resolve, reject) => {
         TunnelGoon.deleteOne({
@@ -65,6 +186,10 @@ module.exports = {
     getAll,
     getOne,
     makeOne,
+    edit,
+    upOneLevel,
+    addNote,
+    addItem,
     deleteOne,
 }
 
