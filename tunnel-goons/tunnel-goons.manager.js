@@ -1,17 +1,89 @@
+const mongoose = require('mongoose');
+require('./TunnelGoon.model');
+const TunnelGoon = mongoose.model('tunnelGoon');
+
 const randomUtil = require("../utilities/random.util");
 const TunnelGoonsConstants = require("./constants");
 const NameConstants = require("../constants/words/names")
 
+async function getAll() {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.find({})
+            .then((tunnelGoonDTOs) => {
+                const tunnelGoons = polishMany(tunnelGoonDTOs);
+                resolve(tunnelGoons);
+            });
+    });
+}
+
+async function getOne(id) {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.findOne({
+            _id: id
+        })
+            .then((tunnelGoonDTO) => {
+                if (tunnelGoonDTO) {
+                    const tunnelGoons = polishOne(tunnelGoonDTO);
+                    resolve(tunnelGoons);
+                } else {
+                    resolve(tunnelGoonDTO);
+                }
+            });
+    });
+}
+
 async function makeOne(options) {
-    try {
-        return generateTunnelGoon(options);
-    } catch (error) {
-        console.error(error);
-    }
+    return new Promise((resolve, reject) => {
+        const tunnelGoon = generateTunnelGoon(options);
+        const errors = checkForErrors(tunnelGoon);
+        if (errors.length > 0) {
+            reject(errors);
+        } else {
+            new TunnelGoon(tunnelGoon)
+                .save()
+                .then((tunnelGoonDTO) => {
+                    resolve(tunnelGoonDTO);
+                });
+        }
+    });
+}
+
+function deleteOne(id) {
+    return new Promise((resolve, reject) => {
+        TunnelGoon.deleteOne({
+            _id: id
+        })
+            .then(() => {
+                resolve({
+                    message: `Tunnel Goon with given id deleted or never existed`
+                });
+            });
+    });
 }
 
 module.exports = {
+    getAll,
+    getOne,
     makeOne,
+    deleteOne,
+}
+
+function polishOne(tg) {
+    return {
+        ...tg._doc,
+        currentInventoryScore: tg.items.length
+    };
+}
+
+function polishMany(tunnelGoons) {
+    return tunnelGoons.map((tg) => {
+        return polishOne(tg);
+    });
+}
+
+function checkForErrors(tunnelGoon) {
+    // TODO add catching any errors here?
+    return [];
 }
 
 function generateDefaultTunnelGoon() {
@@ -19,7 +91,7 @@ function generateDefaultTunnelGoon() {
     const lastName = randomUtil.pickRandom(NameConstants.LASTNAMES);
     const portraitURL = randomUtil.pickRandom(TunnelGoonsConstants.PORTRAITS);
     const characterName = `${firstName} ${lastName}`;
-    const playerName = "N/A";
+    const playerName = null;
     const startingLevel = 1;
     const startingHealthPoints = 10;
     const startingInventoryScore = 8;
