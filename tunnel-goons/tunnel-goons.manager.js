@@ -77,6 +77,7 @@ function edit(tunnelGoon) {
                         found.items = tunnelGoon.items;
                         found.traits = tunnelGoon.traits;
                         found.notes = tunnelGoon.notes;
+                        found.isPrivate = tunnelGoon.isPrivate;
                         found.createdDate = tunnelGoon.createdDate;
 
                         found.save()
@@ -240,6 +241,7 @@ function generateDefaultTunnelGoon() {
         items: startingItems,
         traits,
         notes,
+        isPrivate: false,
         createdDate: new Date(),
     };
 }
