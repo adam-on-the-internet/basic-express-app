@@ -197,7 +197,9 @@ module.exports = {
 function polishOne(tg) {
     return {
         ...tg._doc,
-        currentInventoryScore: tg.items.length
+        currentInventoryScore: tg.items.length,
+        createdDateDatePart: tg.createdDate.toISOString().split("T")[0],
+        createdDateTimePart: tg.createdDate.toISOString().split("T")[1].split(".")[0],
     };
 }
 
