@@ -42,7 +42,7 @@ async function makeOne(options) {
             new TunnelGoon(tunnelGoon)
                 .save()
                 .then((tunnelGoonDTO) => {
-                    resolve(tunnelGoonDTO);
+                    resolve(polishOne(tunnelGoonDTO));
                 });
         }
     });
