@@ -252,6 +252,9 @@ function generateTunnelGoon(options) {
         if (options.duringTheWarCode) {
             duringTheWarCode = options.duringTheWarCode;
         }
+        if (options.partyNames) {
+            tunnelGoon.partyNames = options.partyNames;
+        }
     }
 
     // variable starter stats
