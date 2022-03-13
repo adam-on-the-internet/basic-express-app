@@ -77,6 +77,7 @@ function edit(tunnelGoon) {
                         found.items = tunnelGoon.items;
                         found.traits = tunnelGoon.traits;
                         found.notes = tunnelGoon.notes;
+                        found.partyNames = tunnelGoon.partyNames;
                         found.isPrivate = tunnelGoon.isPrivate;
                         found.createdDate = tunnelGoon.createdDate;
 
@@ -92,6 +93,13 @@ function edit(tunnelGoon) {
 
 function upOneLevel(id, classScore, bonusScore) {
     return new Promise((resolve, reject) => {
+        const invalidClassScore = !classScore || !["brute", "erudite", "skulker"].includes(classScore.toLowerCase());
+        const invalidBonusScore = !bonusScore || !["health", "inventory"].includes(bonusScore.toLowerCase());
+        if (invalidClassScore || invalidBonusScore) {
+            reject({
+                message: `Failed to find tunnel goon`
+            });
+        }
         TunnelGoon.findOne({
             _id: id
         })
@@ -111,55 +119,13 @@ function upOneLevel(id, classScore, bonusScore) {
                         found.erudite += 1;
                     }
 
-                    if (bonusScore && classScore.toLowerCase() === "health") {
+                    if (bonusScore && bonusScore.toLowerCase() === "health") {
                         found.maxHealthPoints += 1;
                     } else if (bonusScore && bonusScore.toLowerCase() === "inventory") {
                         found.maxInventoryScore += 1;
                     }
 
-                    found.save()
-                        .then((response) => {
-                            resolve(polishOne(response));
-                        });
-                }
-            });
-    });
-}
-
-function addNote(id, note) {
-    return new Promise((resolve, reject) => {
-        TunnelGoon.findOne({
-            _id: id
-        })
-            .then((found) => {
-                if (!found) {
-                    reject({
-                        message: `Failed to find tunnel goon`
-                    });
-                } else {
-                    found.notes.push(note);
-
-                    found.save()
-                        .then((response) => {
-                            resolve(polishOne(response));
-                        });
-                }
-            });
-    });
-}
-
-function addItem(id, item) {
-    return new Promise((resolve, reject) => {
-        TunnelGoon.findOne({
-            _id: id
-        })
-            .then((found) => {
-                if (!found) {
-                    reject({
-                        message: `Failed to find tunnel goon`
-                    });
-                } else {
-                    found.items.push(item);
+                    found.traits.push(`Level ${found.level - 1} to ${found.level}: gained ${classScore.toLowerCase()} and ${bonusScore.toLowerCase()}`)
 
                     found.save()
                         .then((response) => {
@@ -189,8 +155,6 @@ module.exports = {
     makeOne,
     edit,
     upOneLevel,
-    addNote,
-    addItem,
     deleteOne,
 }
 
@@ -210,8 +174,11 @@ function polishMany(tunnelGoons) {
 }
 
 function checkForErrors(tunnelGoon) {
-    // TODO add catching any errors here?
-    return [];
+    const errs = [];
+    if (!tunnelGoon.characterName || tunnelGoon.characterName.length === 0) {
+        errs.push("Please enter a character name.")
+    }
+    return errs;
 }
 
 function generateDefaultTunnelGoon() {
@@ -228,6 +195,7 @@ function generateDefaultTunnelGoon() {
     ];
     const traits = [];
     const notes = [];
+    const partyNames = [];
     return {
         characterName,
         playerName,
@@ -243,6 +211,7 @@ function generateDefaultTunnelGoon() {
         items: startingItems,
         traits,
         notes,
+        partyNames,
         isPrivate: false,
         createdDate: new Date(),
     };

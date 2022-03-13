@@ -57,6 +57,11 @@ const TunnelGoonSchema = new Schema({
             type: String
         }
     ],
+    partyNames: [
+        {
+            type: String
+        }
+    ],
     isPrivate: {
         type: Boolean,
         default: false
