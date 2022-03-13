@@ -191,7 +191,7 @@ function generateDefaultTunnelGoon() {
     const startingHealthPoints = 10;
     const startingInventoryScore = 8;
     const startingItems = [
-        "2 rations",
+        "Rations (x2)",
     ];
     const traits = [];
     const notes = [];
