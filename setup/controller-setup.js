@@ -90,6 +90,9 @@ function setupControllers(app) {
   const muppetController = require('../muppet/muppet.controller');
   app.use('/muppet', muppetController);
 
+  const missingWordController = require('../missing-word/missing-word.controller');
+  app.use('/missingWord', missingWordController);
+
   const meetingAgendaController = require('../meeting-agenda/meeting-agenda.controller');
   app.use('/meetingAgenda', meetingAgendaController);
 
