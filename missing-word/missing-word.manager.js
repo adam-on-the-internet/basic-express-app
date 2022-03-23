@@ -30,11 +30,11 @@ function expandCards(cards) {
 }
 
 function expandCard(card) {
-    const splitCard = card.split(" ");
-    const missingIsFirst = splitCard[0] === "_";
+    const missingIsFirst = card[0] === "_";
+    const cardWord = card.replace("_", "").toUpperCase();
     const type = missingIsFirst ? "MISSING FIRST" : "MISSING SECOND";
     const MISSING_DISPLAY = "_____";
-    const display = missingIsFirst ? `${MISSING_DISPLAY} ${splitCard[1]}` : `${splitCard[0]} ${MISSING_DISPLAY}`;
+    const display = missingIsFirst ? `${MISSING_DISPLAY}${cardWord}` : `${cardWord}${MISSING_DISPLAY}`;
     return {
         raw: card,
         display,
