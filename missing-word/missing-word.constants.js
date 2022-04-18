@@ -36,6 +36,8 @@ const MISSING_WORD_CARDS = [
     "_pad",
     "super_",
     "_mouse",
+    "party_",
+    "_party",
 ];
 
 module.exports = {
