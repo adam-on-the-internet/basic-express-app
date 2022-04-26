@@ -9,6 +9,15 @@ function getAll() {
     });
 }
 
+function getStats() {
+    return new Promise((resolve, reject) => {
+        const CARDS = cards.MISSING_WORD_CARDS;
+        resolve({
+            deckSize: CARDS.length
+        });
+    });
+}
+
 function drawOne() {
     return new Promise((resolve, reject) => {
         const CARDS = cards.MISSING_WORD_CARDS;
@@ -29,6 +38,7 @@ function drawTwo() {
 
 module.exports = {
     getAll,
+    getStats,
     drawOne,
     drawTwo,
 }

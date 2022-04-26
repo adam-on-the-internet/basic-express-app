@@ -13,6 +13,17 @@ controller.get('/all', (req, res) => {
         });
 });
 
+controller.get('/stats', (req, res) => {
+    manager.getStats()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.get('/draw', (req, res) => {
     manager.drawOne()
         .then((response) => {
