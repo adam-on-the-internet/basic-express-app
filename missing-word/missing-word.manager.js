@@ -30,7 +30,8 @@ function drawOne() {
 function drawTwo() {
     return new Promise((resolve, reject) => {
         const CARDS = cards.MISSING_WORD_CARDS;
-        const myCards = randomUtil.drawNItems(CARDS, 2);
+        const handSize = 2;
+        const myCards = randomUtil.drawNItems(CARDS, handSize);
         const expandedCards = expandCards(myCards);
         resolve(expandedCards);
     });
