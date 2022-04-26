@@ -483,13 +483,7 @@ const WHITE_CARDS = [
 ];
 
 const MISSING_WORD_CARDS = [
-    "cat_",
-    "full_",
     "_house",
-    "chain_",
-    "never_",
-    "master_",
-    "rock_",
     "evening_",
     "pay_",
     "north_",
