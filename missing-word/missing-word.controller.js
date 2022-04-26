@@ -24,4 +24,15 @@ controller.get('/draw', (req, res) => {
         });
 });
 
+controller.get('/draw2', (req, res) => {
+    manager.drawTwo()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 module.exports = controller;
