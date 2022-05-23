@@ -516,6 +516,7 @@ const MISSING_WORD_CARDS = [
     "_mouse",
     "party_",
     "_party",
+    "_vision",
 ].concat(WHITE_CARDS, GREY_CARDS);
 
 module.exports = {
