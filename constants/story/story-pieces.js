@@ -1,4 +1,10 @@
 const STORY_FOR_SYNONYMS = [
+    "{Ace} Attorney",
+    "Ace {Attorney}",
+    "Ace Attorney: {Spirit} of Justice",
+    "Ace Attorney: Spirit of {Justice}",
+    "Kirby: {Canvas} Curse",
+    "Kirby: Canvas {Curse}",
     "Kirby's {Epic} Yarn",
     "Kiby's Epic {Yarn}",
     "Kirby and the {Forgotten} Land",
