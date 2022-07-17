@@ -1,4 +1,10 @@
 const STORY_FOR_SYNONYMS = [
+    "{Lords} of Waterdeep",
+    "{Big} Brain Academy",
+    "Big Brain {Academy}",
+    "Mage Wars: {Arena}",
+    "Mage Wars: {Academy}",
+    "Metroid: {Dread}",
     "{Ace} Attorney",
     "Ace {Attorney}",
     "Ace Attorney: {Spirit} of Justice",
