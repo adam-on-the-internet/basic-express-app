@@ -10,8 +10,19 @@ function getAllCases() {
         Case.find({})
             .then((allCases) => {
                 const populatedCases = casePopulator.populateCases(allCases);
-                const sortedCases = caseSorter.sortCases(populatedCases);
+                const sortedCases = caseSorter.sortCasesByStatus(populatedCases);
                 resolve(sortedCases);
+            });
+    });
+}
+
+function getAllCasesFlat() {
+    return new Promise((resolve, reject) => {
+        Case.find({})
+            .then((allCases) => {
+                const populatedCases = casePopulator.populateCases(allCases);
+                const orderedCases = caseSorter.orderCasesByDate(populatedCases);
+                resolve(orderedCases);
             });
     });
 }
@@ -49,6 +60,7 @@ function deleteOneCase(id) {
 
 module.exports = {
     getAllCases,
+    getAllCasesFlat,
     getCaseById,
-    deleteOneCase
+    deleteOneCase,
 }

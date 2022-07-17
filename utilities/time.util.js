@@ -9,6 +9,18 @@ function have24HoursPast(previousTime) {
     return hoursPast > 24;
 }
 
+// https://stackoverflow.com/questions/3066586/get-string-in-yyyymmdd-format-from-js-date-object
+function getDateString(date) {
+    const mm = date.getMonth() + 1; // getMonth() is zero-based
+    const dd = date.getDate();
+
+    const year = date.getFullYear();
+    const month = (mm>9 ? '' : '0') + mm;
+    const day = (dd>9 ? '' : '0') + dd;
+    return [year, month, day].join('-');
+}
+
 module.exports = {
-    have24HoursPast
+    have24HoursPast,
+    getDateString,
 }

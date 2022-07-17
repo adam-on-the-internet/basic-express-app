@@ -4,6 +4,7 @@ const evidenceHelper = require('./evidence.helper');
 const statusHelper = require('./case-status.helper');
 
 const boolUtil = require('../utilities/bool.util');
+const timeUtil = require('../utilities/time.util');
 
 function buildWitnessPlayers(myCase) {
     const witnessPlayers = [];
@@ -48,6 +49,12 @@ function buildWitnessPlayers(myCase) {
         });
     }
     return witnessPlayers;
+}
+
+function addSummary(myCase) {
+    const openedDateDisplay = timeUtil.getDateString(new Date(myCase.openedDate));
+    myCase.summary = `${myCase.fullCaseName} | Opened: ${openedDateDisplay} | Status: ${myCase.statusText} (${myCase.status})`;
+    return myCase;
 }
 
 function addStatusAttributes(myCase) {
@@ -109,7 +116,8 @@ function addCaseAttributes(myCase) {
     myCase = addNameAttributes(myCase);
     myCase = addWitnessAttributes(myCase);
     myCase = addEvidenceAttributes(myCase);
-    return addStatusAttributes(myCase);
+    myCase = addStatusAttributes(myCase);
+    return addSummary(myCase);
 }
 
 module.exports = {

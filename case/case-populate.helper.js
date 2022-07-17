@@ -35,12 +35,9 @@ function populateCase(myCase) {
 }
 
 function populateCases(myCases) {
-    const populatedCases = [];
-    myCases.forEach((myCase) => {
-        const populatedCase = populateCase(myCase);
-        populatedCases.push(populatedCase);
+    return myCases.map((myCase) => {
+        return populateCase(myCase);
     })
-    return populatedCases;
 }
 
 module.exports = {

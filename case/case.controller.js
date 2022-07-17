@@ -42,6 +42,18 @@ caseController.get('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res)
         });
 });
 
+caseController.get('/summary', (req, res) => {
+    caseManager.getAllCasesFlat()
+        .then((cases) => {
+            const x = cases.map(x => x.summary);
+            res.send(x);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 caseController.get('/:id', (req, res) => {
     const id = req.params.id;
     caseManager.getCaseById(id)

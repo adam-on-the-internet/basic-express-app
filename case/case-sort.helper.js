@@ -8,7 +8,7 @@ function orderCasesByDate(cases) {
     });
 }
 
-function sortCases(myCases) {
+function sortCasesByStatus(myCases) {
     const orderedCases = orderCasesByDate(myCases);
     const sortedCases = {
         openCases: [],
@@ -28,5 +28,6 @@ function sortCases(myCases) {
 }
 
 module.exports = {
-    sortCases
+    sortCasesByStatus,
+    orderCasesByDate,
 };
