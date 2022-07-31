@@ -9,6 +9,9 @@ function setupControllers(app) {
   const widgetController = require('../widget/widget.controller');
   app.use('/widget', widgetController);
 
+  const dsmScrapeController = require('../dsm-scrape/dsm-scrape.controller');
+  app.use('/dsmScrape', dsmScrapeController);
+
   const doodadController = require('../doodad/doodad.controller');
   app.use('/doodad', doodadController);
 
