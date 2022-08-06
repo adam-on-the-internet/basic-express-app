@@ -13,6 +13,17 @@ controller.get('/newsPost', (req, res) => {
         });
 });
 
+controller.get('/calendarEvent', (req, res) => {
+    manager.getAllCalendarEvents()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.post('/newsPost', (req, res) => {
     const newsPost = req.body;
     manager.saveNewsPost(newsPost)
@@ -25,9 +36,33 @@ controller.post('/newsPost', (req, res) => {
         });
 });
 
+controller.post('/calendarEvent', (req, res) => {
+    const calendarEvent = req.body;
+    manager.saveCalendarEvent(calendarEvent)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.post('/newsPost/:id/check', (req, res) => {
     const id = req.params.id;
     manager.checkNewsPost(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.post('/calendarEvent/:id/check', (req, res) => {
+    const id = req.params.id;
+    manager.checkCalendarEvent(id)
         .then((response) => {
             res.send(response);
         })
