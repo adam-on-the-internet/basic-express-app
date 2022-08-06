@@ -25,4 +25,16 @@ controller.post('/newsPost', (req, res) => {
         });
 });
 
+controller.post('/newsPost/:id/check', (req, res) => {
+    const id = req.params.id;
+    manager.checkNewsPost(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 module.exports = controller;

@@ -11,6 +11,25 @@ function getAllNewsPosts() {
     });
 }
 
+function checkNewsPost(newsPostId) {
+    return new Promise((resolve, reject) => {
+        NewsPost.findOne({_id: newsPostId})
+            .then((newsPost) => {
+                if (newsPost) {
+                    newsPost.checked = true;
+                    newsPost.save()
+                        .then((updatedNewsPost) => {
+                            resolve(updatedNewsPost);
+                        });
+                } else {
+                    reject({
+                        message: `Failed to check post.`
+                    });
+                }
+            });
+    });
+}
+
 function saveNewsPost(newsPost) {
     return new Promise((resolve, reject) => {
         new NewsPost({
@@ -31,4 +50,5 @@ function saveNewsPost(newsPost) {
 module.exports = {
     saveNewsPost,
     getAllNewsPosts,
+    checkNewsPost,
 }
