@@ -60,7 +60,7 @@ function saveNewsPost(newsPost) {
 function saveCalendarEvent(calendarEvent) {
     return new Promise((resolve, reject) => {
         new CalendarEvent({
-            day: calendarEvent.url,
+            day: calendarEvent.day,
             month: calendarEvent.month,
             year: calendarEvent.year,
             name: calendarEvent.name,
