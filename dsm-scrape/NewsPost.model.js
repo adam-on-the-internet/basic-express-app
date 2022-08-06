@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const NewsPostSchema = new Schema({
+  url: {
+    type: String,
+    required: true,
+  },
   heading_title: {
     type: String,
     required: true,
@@ -9,10 +13,6 @@ const NewsPostSchema = new Schema({
   heading_date: {
     type: String,
     required: false,
-  },
-  page_url: {
-    type: String,
-    required: true,
   },
   page_title: {
     type: String,

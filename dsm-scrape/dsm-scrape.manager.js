@@ -14,11 +14,11 @@ function getAllNewsPosts() {
 function saveNewsPost(newsPost) {
     return new Promise((resolve, reject) => {
         new NewsPost({
+            url: newsPost.url,
             heading_title: newsPost.heading_title,
-            page_url: newsPost.page_url,
-            page_content: newsPost.page_content,
-            page_title: newsPost.page_title,
             heading_date: newsPost.heading_date,
+            page_title: newsPost.page_title,
+            page_content: newsPost.page_content,
             checked: false,
         })
             .save()
