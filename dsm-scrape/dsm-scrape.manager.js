@@ -15,11 +15,11 @@ function saveNewsPost(newsPost) {
     return new Promise((resolve, reject) => {
         new NewsPost({
             heading_title: newsPost.heading_title,
-            heading_url: newsPost.heading_url,
             page_url: newsPost.page_url,
             page_content: newsPost.page_content,
             page_title: newsPost.page_title,
             heading_date: newsPost.heading_date,
+            checked: false,
         })
             .save()
             .then((item) => {

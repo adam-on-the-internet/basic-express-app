@@ -6,25 +6,25 @@ const NewsPostSchema = new Schema({
     type: String,
     required: true,
   },
-  heading_url: {
+  heading_date: {
     type: String,
-    required: true,
+    required: false,
   },
   page_url: {
     type: String,
     required: true,
   },
-  page_content: {
-    type: String,
-    required: false,
-  },
   page_title: {
     type: String,
     required: false,
   },
-  heading_date: {
+  page_content: {
     type: String,
     required: false,
+  },
+  checked: {
+    type: Boolean,
+    default: false,
   },
   found_date: {
     type: Date,
