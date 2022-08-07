@@ -24,6 +24,17 @@ controller.get('/calendarEvent', (req, res) => {
         });
 });
 
+controller.get('/councilMeeting', (req, res) => {
+    manager.getAllCouncilMeetings()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.post('/newsPost', (req, res) => {
     const newsPost = req.body;
     manager.saveNewsPost(newsPost)
@@ -48,9 +59,21 @@ controller.post('/calendarEvent', (req, res) => {
         });
 });
 
-controller.post('/newsPost/:id/check', (req, res) => {
+controller.post('/councilMeeting', (req, res) => {
+    const councilMeeting = req.body;
+    manager.saveCouncilMeeting(councilMeeting)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.post('/councilMeeting/:id/check', (req, res) => {
     const id = req.params.id;
-    manager.checkNewsPost(id)
+    manager.checkCouncilMeeting(id)
         .then((response) => {
             res.send(response);
         })
