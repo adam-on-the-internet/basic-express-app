@@ -14,10 +14,6 @@ const CouncilMeetingSchema = new Schema({
     type: String,
     required: true,
   },
-  time: {
-    type: String,
-    required: true,
-  },
   url: {
     type: String,
     required: true,
@@ -35,6 +31,10 @@ const CouncilMeetingSchema = new Schema({
       type: String
     }
   ],
+  time: {
+    type: String,
+    required: false,
+  },
 
   checked: {
     type: Boolean,
