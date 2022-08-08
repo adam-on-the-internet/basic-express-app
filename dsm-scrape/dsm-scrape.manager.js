@@ -26,6 +26,7 @@ function checkNewsPost(newsPostId) {
 
 function saveNewsPost(newsPost) {
     return new Promise((resolve, reject) => {
+        const message = "News Post found. ";
         new NewsPost({
             url: newsPost.url,
             heading_title: newsPost.heading_title,
@@ -33,7 +34,8 @@ function saveNewsPost(newsPost) {
             page_title: newsPost.page_title,
             page_content: newsPost.page_content,
             checked: false,
-            check_message: "News Post found. "
+            check_message: message,
+            check_message_log: [getLogMessage(message)]
         })
             .save()
             .then((item) => {
@@ -62,6 +64,7 @@ function checkCalendarEvent(calendarEventId) {
 
 function saveCalendarEvent(calendarEvent) {
     return new Promise((resolve, reject) => {
+        const message = "Calendar Event found. ";
         new CalendarEvent({
             day: calendarEvent.day,
             month: calendarEvent.month,
@@ -74,7 +77,8 @@ function saveCalendarEvent(calendarEvent) {
             contact_phone: calendarEvent.contact_phone,
             is_notable: calendarEvent.is_notable,
             checked: false,
-            check_message: "Calendar Event found. "
+            check_message: message,
+            check_message_log: [getLogMessage(message)]
         })
             .save()
             .then((item) => {
@@ -103,6 +107,7 @@ function checkCouncilMeeting(councilMeetingId) {
 
 function saveCouncilMeeting(councilMeeting) {
     return new Promise((resolve, reject) => {
+        const message = "Council Meeting found. ";
         new CouncilMeeting({
             day: councilMeeting.day,
             month: councilMeeting.month,
@@ -113,7 +118,8 @@ function saveCouncilMeeting(councilMeeting) {
             subtitle: councilMeeting.subtitle,
             links: councilMeeting.links,
             checked: false,
-            check_message: "Council Meeting found. "
+            check_message: message,
+            check_message_log: [getLogMessage(message)]
         })
             .save()
             .then((item) => {
@@ -126,6 +132,7 @@ function updateCouncilMeeting(id, updatedCouncilMeeting) {
     return new Promise((resolve, reject) => {
         CouncilMeeting.findOne({_id: id})
             .then((originalCouncilMeeting) => {
+                // TODO add to message with what has updated...
                 originalCouncilMeeting.day = updatedCouncilMeeting.day;
                 originalCouncilMeeting.month = updatedCouncilMeeting.month;
                 originalCouncilMeeting.year = updatedCouncilMeeting.year;
@@ -136,8 +143,10 @@ function updateCouncilMeeting(id, updatedCouncilMeeting) {
                 originalCouncilMeeting.links = updatedCouncilMeeting.links;
 
                 // Set to unchecked, with Update Message
+                const message = "Council Meeting updated. ";
                 originalCouncilMeeting.checked = false;
-                originalCouncilMeeting.check_message += "Council Meeting updated. ";
+                originalCouncilMeeting.check_message += message;
+                originalCouncilMeeting.check_message_log.push(getLogMessage(message))
 
                 originalCouncilMeeting.save()
                     .then((result) => {
@@ -173,4 +182,8 @@ function checkItem(item, resolve, reject) {
             message: `Failed to check item.`
         });
     }
+}
+
+function getLogMessage(message) {
+    return `${message} ${new Date().toString()}`;
 }

@@ -44,6 +44,11 @@ const CouncilMeetingSchema = new Schema({
     type: String,
     default: "",
   },
+  check_message_log: [
+    {
+      type: String
+    }
+  ],
   found_date: {
     type: Date,
     default: Date.now
