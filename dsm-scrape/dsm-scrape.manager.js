@@ -69,7 +69,7 @@ function saveNewsPost(newsPost) {
             page_title: newsPost.page_title,
             page_content: newsPost.page_content,
             checked: false,
-            check_message: "New News Post found."
+            check_message: "News Post found. "
         })
             .save()
             .then((item) => {
@@ -92,7 +92,7 @@ function saveCalendarEvent(calendarEvent) {
             contact_phone: calendarEvent.contact_phone,
             is_notable: calendarEvent.is_notable,
             checked: false,
-            check_message: "New Calendar Event found."
+            check_message: "Calendar Event found. "
         })
             .save()
             .then((item) => {
@@ -113,7 +113,7 @@ function saveCouncilMeeting(councilMeeting) {
             subtitle: councilMeeting.subtitle,
             links: councilMeeting.links,
             checked: false,
-            check_message: "New Council Meeting found."
+            check_message: "Council Meeting found. "
         })
             .save()
             .then((item) => {
@@ -122,16 +122,42 @@ function saveCouncilMeeting(councilMeeting) {
     });
 }
 
+function updateCouncilMeeting(id, updatedCouncilMeeting) {
+    return new Promise((resolve, reject) => {
+        CouncilMeeting.findOne({_id: id})
+            .then((originalCouncilMeeting) => {
+                originalCouncilMeeting.day = updatedCouncilMeeting.day;
+                originalCouncilMeeting.month = updatedCouncilMeeting.month;
+                originalCouncilMeeting.year = updatedCouncilMeeting.year;
+                originalCouncilMeeting.time = updatedCouncilMeeting.time;
+                originalCouncilMeeting.url = updatedCouncilMeeting.url;
+                originalCouncilMeeting.title = updatedCouncilMeeting.title;
+                originalCouncilMeeting.subtitle = updatedCouncilMeeting.subtitle;
+                originalCouncilMeeting.links = updatedCouncilMeeting.links;
+
+                // Set to unchecked, with Update Message
+                originalCouncilMeeting.checked = false;
+                originalCouncilMeeting.check_message += "Council Meeting updated. ";
+
+                originalCouncilMeeting.save()
+                    .then((result) => {
+                        resolve(result);
+                    });
+            });
+    });
+}
+
 module.exports = {
     saveNewsPost,
-    saveCalendarEvent,
-    saveCouncilMeeting,
     getAllNewsPosts,
-    getAllCalendarEvents,
-    getAllCouncilMeetings,
     checkNewsPost,
+    saveCalendarEvent,
+    getAllCalendarEvents,
     checkCalendarEvent,
+    saveCouncilMeeting,
+    getAllCouncilMeetings,
     checkCouncilMeeting,
+    updateCouncilMeeting,
 }
 
 function checkItem(item, resolve, reject) {
