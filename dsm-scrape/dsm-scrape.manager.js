@@ -132,21 +132,45 @@ function updateCouncilMeeting(id, updatedCouncilMeeting) {
     return new Promise((resolve, reject) => {
         CouncilMeeting.findOne({_id: id})
             .then((originalCouncilMeeting) => {
-                // TODO add to message with what has updated...
-                originalCouncilMeeting.day = updatedCouncilMeeting.day;
-                originalCouncilMeeting.month = updatedCouncilMeeting.month;
-                originalCouncilMeeting.year = updatedCouncilMeeting.year;
-                originalCouncilMeeting.time = updatedCouncilMeeting.time;
-                originalCouncilMeeting.url = updatedCouncilMeeting.url;
-                originalCouncilMeeting.title = updatedCouncilMeeting.title;
-                originalCouncilMeeting.subtitle = updatedCouncilMeeting.subtitle;
-                originalCouncilMeeting.links = updatedCouncilMeeting.links;
+                let updateMessage = "Council Meeting updated. ";
+
+                if (originalCouncilMeeting.day !== updatedCouncilMeeting.day) {
+                    originalCouncilMeeting.day = updatedCouncilMeeting.day;
+                    updateMessage += "Day updated. ";
+                }
+                if (originalCouncilMeeting.month !== updatedCouncilMeeting.month) {
+                    originalCouncilMeeting.month = updatedCouncilMeeting.month;
+                    updateMessage += "Month updated. ";
+                }
+                if (originalCouncilMeeting.year !== updatedCouncilMeeting.year) {
+                    originalCouncilMeeting.year = updatedCouncilMeeting.year;
+                    updateMessage += "Year updated. ";
+                }
+                if (originalCouncilMeeting.time !== updatedCouncilMeeting.time) {
+                    originalCouncilMeeting.time = updatedCouncilMeeting.time;
+                    updateMessage += "Time updated. ";
+                }
+                if (originalCouncilMeeting.url !== updatedCouncilMeeting.url) {
+                    originalCouncilMeeting.url = updatedCouncilMeeting.url;
+                    updateMessage += "URL updated. ";
+                }
+                if (originalCouncilMeeting.title !== updatedCouncilMeeting.title) {
+                    originalCouncilMeeting.title = updatedCouncilMeeting.title;
+                    updateMessage += "Title updated. ";
+                }
+                if (originalCouncilMeeting.subtitle !== updatedCouncilMeeting.subtitle) {
+                    originalCouncilMeeting.subtitle = updatedCouncilMeeting.subtitle;
+                    updateMessage += "Subtitle updated. ";
+                }
+                if (originalCouncilMeeting.links !== updatedCouncilMeeting.links) {
+                    originalCouncilMeeting.links = updatedCouncilMeeting.links;
+                    updateMessage += "Links updated. ";
+                }
 
                 // Set to unchecked, with Update Message
-                const message = "Council Meeting updated. ";
                 originalCouncilMeeting.checked = false;
-                originalCouncilMeeting.check_message += message;
-                originalCouncilMeeting.check_message_log.push(getLogMessage(message))
+                originalCouncilMeeting.check_message += updateMessage;
+                originalCouncilMeeting.check_message_log.push(getLogMessage(updateMessage))
 
                 originalCouncilMeeting.save()
                     .then((result) => {
