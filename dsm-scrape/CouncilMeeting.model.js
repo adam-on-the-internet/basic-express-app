@@ -40,6 +40,10 @@ const CouncilMeetingSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  check_message: {
+    type: String,
+    default: "",
+  },
   found_date: {
     type: Date,
     default: Date.now

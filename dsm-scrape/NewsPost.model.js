@@ -22,9 +22,14 @@ const NewsPostSchema = new Schema({
     type: String,
     required: false,
   },
+
   checked: {
     type: Boolean,
     default: false,
+  },
+  check_message: {
+    type: String,
+    default: "",
   },
   found_date: {
     type: Date,

@@ -69,6 +69,7 @@ function saveNewsPost(newsPost) {
             page_title: newsPost.page_title,
             page_content: newsPost.page_content,
             checked: false,
+            check_message: "New News Post found."
         })
             .save()
             .then((item) => {
@@ -91,6 +92,7 @@ function saveCalendarEvent(calendarEvent) {
             contact_phone: calendarEvent.contact_phone,
             is_notable: calendarEvent.is_notable,
             checked: false,
+            check_message: "New Calendar Event found."
         })
             .save()
             .then((item) => {
@@ -99,18 +101,19 @@ function saveCalendarEvent(calendarEvent) {
     });
 }
 
-function saveCouncilMeeting(calendarEvent) {
+function saveCouncilMeeting(councilMeeting) {
     return new Promise((resolve, reject) => {
         new CouncilMeeting({
-            day: calendarEvent.day,
-            month: calendarEvent.month,
-            year: calendarEvent.year,
-            time: calendarEvent.time,
-            url: calendarEvent.url,
-            title: calendarEvent.title,
-            subtitle: calendarEvent.subtitle,
-            links: calendarEvent.links,
+            day: councilMeeting.day,
+            month: councilMeeting.month,
+            year: councilMeeting.year,
+            time: councilMeeting.time,
+            url: councilMeeting.url,
+            title: councilMeeting.title,
+            subtitle: councilMeeting.subtitle,
+            links: councilMeeting.links,
             checked: false,
+            check_message: "New Council Meeting found."
         })
             .save()
             .then((item) => {
@@ -134,6 +137,7 @@ module.exports = {
 function checkItem(item, resolve, reject) {
     if (item) {
         item.checked = true;
+        item.check_message = "";
         item.save()
             .then((updatedItem) => {
                 resolve(updatedItem);
