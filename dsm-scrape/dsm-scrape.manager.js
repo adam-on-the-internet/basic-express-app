@@ -192,7 +192,8 @@ function checkItem(item, resolve, reject) {
 }
 
 function getLogMessage(message) {
-    const dateTimeString = new Date().toLocaleString('en-US', {timeZone: 'CT',})
+    const currentDate = new Date();
+    const dateTimeString = currentDate.toLocaleString('en-US', {timeZone: 'America/Chicago'});
     return `${message} ${dateTimeString}`;
 }
 
