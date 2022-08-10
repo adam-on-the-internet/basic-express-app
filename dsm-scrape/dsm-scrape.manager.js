@@ -27,6 +27,7 @@ function checkNewsPost(newsPostId) {
 function saveNewsPost(newsPost) {
     return new Promise((resolve, reject) => {
         const message = "News Post found. ";
+        const logMessage = getLogMessage(message);
         new NewsPost({
             url: newsPost.url,
             heading_title: newsPost.heading_title,
@@ -35,7 +36,7 @@ function saveNewsPost(newsPost) {
             page_content: newsPost.page_content,
             checked: false,
             check_message: message,
-            check_message_log: [getLogMessage(message)]
+            check_message_log: [logMessage]
         })
             .save()
             .then((item) => {
@@ -65,6 +66,7 @@ function checkCalendarEvent(calendarEventId) {
 function saveCalendarEvent(calendarEvent) {
     return new Promise((resolve, reject) => {
         const message = "Calendar Event found. ";
+        const logMessage = getLogMessage(message);
         new CalendarEvent({
             day: calendarEvent.day,
             month: calendarEvent.month,
@@ -78,7 +80,7 @@ function saveCalendarEvent(calendarEvent) {
             is_notable: calendarEvent.is_notable,
             checked: false,
             check_message: message,
-            check_message_log: [getLogMessage(message)]
+            check_message_log: [logMessage]
         })
             .save()
             .then((item) => {
@@ -108,18 +110,21 @@ function checkCouncilMeeting(councilMeetingId) {
 function saveCouncilMeeting(councilMeeting) {
     return new Promise((resolve, reject) => {
         const message = "Council Meeting found. ";
+        const logMessage = getLogMessage(message);
         new CouncilMeeting({
             day: councilMeeting.day,
             month: councilMeeting.month,
             year: councilMeeting.year,
             time: councilMeeting.time,
+
             url: councilMeeting.url,
             title: councilMeeting.title,
             subtitle: councilMeeting.subtitle,
             links: councilMeeting.links,
+
             checked: false,
             check_message: message,
-            check_message_log: [getLogMessage(message)]
+            check_message_log: [logMessage]
         })
             .save()
             .then((item) => {
@@ -128,53 +133,31 @@ function saveCouncilMeeting(councilMeeting) {
     });
 }
 
-function updateCouncilMeeting(id, updatedCouncilMeeting) {
+function updateCouncilMeeting(id, newItem) {
     return new Promise((resolve, reject) => {
         CouncilMeeting.findOne({_id: id})
-            .then((originalCouncilMeeting) => {
+            .then((originalItem) => {
                 let updateMessage = "Council Meeting updated. ";
 
-                if (originalCouncilMeeting.day !== updatedCouncilMeeting.day) {
-                    originalCouncilMeeting.day = updatedCouncilMeeting.day;
-                    updateMessage += "Day updated. ";
-                }
-                if (originalCouncilMeeting.month !== updatedCouncilMeeting.month) {
-                    originalCouncilMeeting.month = updatedCouncilMeeting.month;
-                    updateMessage += "Month updated. ";
-                }
-                if (originalCouncilMeeting.year !== updatedCouncilMeeting.year) {
-                    originalCouncilMeeting.year = updatedCouncilMeeting.year;
-                    updateMessage += "Year updated. ";
-                }
-                if (originalCouncilMeeting.time !== updatedCouncilMeeting.time) {
-                    originalCouncilMeeting.time = updatedCouncilMeeting.time;
-                    updateMessage += "Time updated. ";
-                }
-                if (originalCouncilMeeting.url !== updatedCouncilMeeting.url) {
-                    originalCouncilMeeting.url = updatedCouncilMeeting.url;
-                    updateMessage += "URL updated. ";
-                }
-                if (originalCouncilMeeting.title !== updatedCouncilMeeting.title) {
-                    originalCouncilMeeting.title = updatedCouncilMeeting.title;
-                    updateMessage += "Title updated. ";
-                }
-                if (originalCouncilMeeting.subtitle !== updatedCouncilMeeting.subtitle) {
-                    originalCouncilMeeting.subtitle = updatedCouncilMeeting.subtitle;
-                    updateMessage += "Subtitle updated. ";
-                }
-                if (originalCouncilMeeting.links !== updatedCouncilMeeting.links) {
-                    originalCouncilMeeting.links = updatedCouncilMeeting.links;
-                    updateMessage += "Links updated. ";
-                }
+                updateMessage = updateField(updateMessage, "day", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "month", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "year", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "time", originalItem, newItem,);
+
+                updateMessage = updateField(updateMessage, "url", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "title", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "subtitle", originalItem, newItem,);
+                updateMessage = updateField(updateMessage, "links", originalItem, newItem,);
 
                 // Set to unchecked, with Update Message
-                originalCouncilMeeting.checked = false;
-                originalCouncilMeeting.check_message += updateMessage;
-                originalCouncilMeeting.check_message_log.push(getLogMessage(updateMessage))
+                originalItem.checked = false;
+                originalItem.check_message += updateMessage;
+                const logMessage = getLogMessage(updateMessage);
+                originalItem.check_message_log.push(logMessage)
 
-                originalCouncilMeeting.save()
-                    .then((result) => {
-                        resolve(result);
+                originalItem.save()
+                    .then((resultItem) => {
+                        resolve(resultItem);
                     });
             });
     });
@@ -209,5 +192,14 @@ function checkItem(item, resolve, reject) {
 }
 
 function getLogMessage(message) {
-    return `${message} ${new Date().toString()}`;
+    const dateTimeString = new Date().toLocaleString('en-US', {timeZone: 'CT',})
+    return `${message} ${dateTimeString}`;
+}
+
+function updateField(updateMessage, field, originalItem, newItem) {
+    if (originalItem[field] !== newItem[field]) {
+        updateMessage += `${field} updated. ${originalItem[field]} -> ${newItem[field]}`;
+        originalItem[field] = newItem[field];
+    }
+    return updateMessage;
 }
