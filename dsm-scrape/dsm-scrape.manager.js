@@ -207,9 +207,9 @@ function updateField(updateMessage, field, originalItem, newItem) {
 
 function updateFieldForList(updateMessage, field, originalItem, newItem) {
     if (originalItem[field] !== newItem[field]) {
-        const itemsAdded = originalItem[field].filter((o) => newItem[field].indexOf(o) === -1);
-        const itemsRemoved = newItem[field].filter((o) => originalItem[field].indexOf(o) === -1);
-        updateMessage += `${field} updated from {${originalItem[field].length}} to {${newItem[field].length}} items, added: {${itemsAdded}, removed: {${itemsRemoved}.`;
+        const itemsRemoved = originalItem[field].filter((o) => newItem[field].indexOf(o) === -1);
+        const itemsAdded = newItem[field].filter((o) => originalItem[field].indexOf(o) === -1);
+        updateMessage += `${field} updated from ${originalItem[field].length} to ${newItem[field].length} item(s), added [${itemsAdded}], removed [${itemsRemoved}].`;
         originalItem[field] = newItem[field];
     }
     return updateMessage;
