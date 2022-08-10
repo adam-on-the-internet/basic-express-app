@@ -194,14 +194,12 @@ function checkItem(item, resolve, reject) {
 function getLogMessage(message) {
     const currentDate = new Date();
     const dateTimeString = currentDate.toLocaleString('en-US', {timeZone: 'America/Chicago'});
-    return `${message} at ${dateTimeString}.`;
+    return `${message} @ ${dateTimeString}`;
 }
 
 function updateField(updateMessage, field, originalItem, newItem) {
     if (originalItem[field] !== newItem[field]) {
-        const itemsAdded = originalItem[field].filter((o) => newItem[field].indexOf(o) === -1);
-        const itemsRemoved = newItem[field].filter((o) => originalItem[field].indexOf(o) === -1);
-        updateMessage += `${field} updated from {${originalItem[field]}} to {${newItem[field]}}, added: {${itemsAdded}, removed: {${itemsRemoved}`;
+        updateMessage += `${field} updated from {${originalItem[field]}} to {${newItem[field]}}.`;
         originalItem[field] = newItem[field];
     }
     return updateMessage;
@@ -209,7 +207,9 @@ function updateField(updateMessage, field, originalItem, newItem) {
 
 function updateFieldForList(updateMessage, field, originalItem, newItem) {
     if (originalItem[field] !== newItem[field]) {
-        updateMessage += `${field} updated from {${originalItem[field].length}} to {${newItem[field].length}} items`;
+        const itemsAdded = originalItem[field].filter((o) => newItem[field].indexOf(o) === -1);
+        const itemsRemoved = newItem[field].filter((o) => originalItem[field].indexOf(o) === -1);
+        updateMessage += `${field} updated from {${originalItem[field].length}} to {${newItem[field].length}} items, added: {${itemsAdded}, removed: {${itemsRemoved}.`;
         originalItem[field] = newItem[field];
     }
     return updateMessage;
