@@ -168,8 +168,14 @@ function updateCouncilMeeting(id, newItem) {
 function getPlaintextAgendas(code) {
     return new Promise((resolve, reject) => {
         PlaintextAgenda.find({agenda_code: code})
+            .sort({found_date: -1})
             .then((items) => {
-                resolve(items);
+                if (items.length === 0) {
+                    return null;
+                } else {
+                    const mostRecentItem = items[0];
+                    resolve(mostRecentItem);
+                }
             });
     });
 }

@@ -120,7 +120,7 @@ controller.post('/councilMeeting/:id/update', (req, res) => {
         });
 });
 
-controller.get('/plaintextAgenda/:code', (req, res) => {
+controller.get('/plaintextAgenda/:code/mostRecent', (req, res) => {
     const code = req.params.code;
     manager.getPlaintextAgendas(code)
         .then((response) => {
