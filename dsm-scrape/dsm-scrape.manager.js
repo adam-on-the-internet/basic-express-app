@@ -165,21 +165,6 @@ function updateCouncilMeeting(id, newItem) {
     });
 }
 
-function getMostRecentPlaintextAgenda(code) {
-    return new Promise((resolve, reject) => {
-        PlaintextAgenda.find({agenda_code: code})
-            .sort({found_date: -1})
-            .then((items) => {
-                if (items.length === 0) {
-                    return null;
-                } else {
-                    const mostRecentItem = items[0];
-                    resolve(mostRecentItem);
-                }
-            });
-    });
-}
-
 function getPlaintextAgendas(code) {
     return new Promise((resolve, reject) => {
         PlaintextAgenda.find({agenda_code: code})
@@ -215,7 +200,6 @@ module.exports = {
     checkCouncilMeeting,
     updateCouncilMeeting,
     getPlaintextAgendas,
-    getMostRecentPlaintextAgenda,
     savePlaintextAgenda,
 }
 
