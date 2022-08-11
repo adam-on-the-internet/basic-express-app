@@ -165,7 +165,7 @@ function updateCouncilMeeting(id, newItem) {
     });
 }
 
-function getPlaintextAgendas(code) {
+function getMostRecentPlaintextAgenda(code) {
     return new Promise((resolve, reject) => {
         PlaintextAgenda.find({agenda_code: code})
             .sort({found_date: -1})
@@ -176,6 +176,16 @@ function getPlaintextAgendas(code) {
                     const mostRecentItem = items[0];
                     resolve(mostRecentItem);
                 }
+            });
+    });
+}
+
+function getPlaintextAgendas(code) {
+    return new Promise((resolve, reject) => {
+        PlaintextAgenda.find({agenda_code: code})
+            .sort({found_date: -1})
+            .then((items) => {
+                resolve(items);
             });
     });
 }
@@ -205,6 +215,7 @@ module.exports = {
     checkCouncilMeeting,
     updateCouncilMeeting,
     getPlaintextAgendas,
+    getMostRecentPlaintextAgenda,
     savePlaintextAgenda,
 }
 

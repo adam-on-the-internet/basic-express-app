@@ -122,6 +122,18 @@ controller.post('/councilMeeting/:id/update', (req, res) => {
 
 controller.get('/plaintextAgenda/:code/mostRecent', (req, res) => {
     const code = req.params.code;
+    manager.getMostRecentPlaintextAgenda(code)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.get('/plaintextAgenda/:code', (req, res) => {
+    const code = req.params.code;
     manager.getPlaintextAgendas(code)
         .then((response) => {
             res.send(response);
