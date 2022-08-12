@@ -167,7 +167,7 @@ function updateCouncilMeeting(id, newItem) {
 
 function getPlaintextAgendas(code) {
     return new Promise((resolve, reject) => {
-        PlaintextAgenda.find({agenda_code: code})
+        PlaintextAgenda.find({meeting_code: code})
             .sort({found_date: -1})
             .then((items) => {
                 resolve(items);
@@ -178,7 +178,7 @@ function getPlaintextAgendas(code) {
 function savePlaintextAgenda(item) {
     return new Promise((resolve, reject) => {
         new PlaintextAgenda({
-            agenda_code: item.agenda_code,
+            meeting_code: item.meeting_code,
             plaintext: item.plaintext,
         })
             .save()

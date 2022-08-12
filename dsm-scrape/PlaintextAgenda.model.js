@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const PlaintextAgendaSchema = new Schema({
-  agenda_code: {
+  meeting_code: {
     type: String,
     required: true,
   },
