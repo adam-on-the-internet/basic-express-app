@@ -199,6 +199,15 @@ function saveAgendaVersion(item) {
     });
 }
 
+function checkAgendaVersion(agendaVersionId) {
+    return new Promise((resolve, reject) => {
+        AgendaVersion.findOne({_id: agendaVersionId})
+            .then((item) => {
+                checkItem(item, resolve, reject);
+            });
+    });
+}
+
 module.exports = {
     saveNewsPost,
     getAllNewsPosts,
@@ -212,12 +221,15 @@ module.exports = {
     updateCouncilMeeting,
     getAgendaVersions,
     saveAgendaVersion,
+    checkAgendaVersion,
 }
 
 function checkItem(item, resolve, reject) {
     if (item) {
         item.checked = true;
         item.check_message = "";
+        const logMessage = getLogMessage("Checked. ");
+        item.check_message_log.push(logMessage);
         item.save()
             .then((updatedItem) => {
                 resolve(updatedItem);

@@ -144,4 +144,16 @@ controller.post('/agendaVersion', (req, res) => {
         });
 });
 
+controller.post('/agendaVersion/:id/check', (req, res) => {
+    const id = req.params.id;
+    manager.checkAgendaVersion(id)
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 module.exports = controller;
