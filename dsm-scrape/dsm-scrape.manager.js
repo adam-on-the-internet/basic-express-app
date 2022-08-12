@@ -165,6 +165,16 @@ function updateCouncilMeeting(id, newItem) {
     });
 }
 
+function getAllAgendaVersions() {
+    return new Promise((resolve, reject) => {
+        AgendaVersion.find()
+            .sort({found_date: -1})
+            .then((items) => {
+                resolve(items);
+            });
+    });
+}
+
 function getAgendaVersions(code) {
     return new Promise((resolve, reject) => {
         AgendaVersion.find({meeting_code: code})
@@ -219,6 +229,7 @@ module.exports = {
     getAllCouncilMeetings,
     checkCouncilMeeting,
     updateCouncilMeeting,
+    getAllAgendaVersions,
     getAgendaVersions,
     saveAgendaVersion,
     checkAgendaVersion,

@@ -132,6 +132,17 @@ controller.get('/agendaVersion/:code', (req, res) => {
         });
 });
 
+controller.get('/agendaVersion', (req, res) => {
+    manager.getAllAgendaVersions()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.post('/agendaVersion', (req, res) => {
     const agendaVersion = req.body;
     manager.saveAgendaVersion(agendaVersion)
