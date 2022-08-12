@@ -10,6 +10,25 @@ const AgendaVersionSchema = new Schema({
     type: String,
     required: true,
   },
+
+  version: {
+    type: Number,
+    required: true,
+  },
+
+  checked: {
+    type: Boolean,
+    default: false,
+  },
+  check_message: {
+    type: String,
+    default: "",
+  },
+  check_message_log: [
+    {
+      type: String
+    }
+  ],
   found_date: {
     type: Date,
     default: Date.now

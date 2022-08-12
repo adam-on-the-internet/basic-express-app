@@ -177,13 +177,24 @@ function getAgendaVersions(code) {
 
 function saveAgendaVersion(item) {
     return new Promise((resolve, reject) => {
-        new AgendaVersion({
-            meeting_code: item.meeting_code,
-            plaintext: item.plaintext,
-        })
-            .save()
-            .then((item) => {
-                resolve(item);
+        AgendaVersion.find({meeting_code: item.meeting_code})
+            .then((items) => {
+                const message = "Agenda Version found. ";
+                const logMessage = getLogMessage(message);
+                const version = items.length + 1;
+                new AgendaVersion({
+                    meeting_code: item.meeting_code,
+                    plaintext: item.plaintext,
+                    version: version,
+
+                    checked: false,
+                    check_message: message,
+                    check_message_log: [logMessage]
+                })
+                    .save()
+                    .then((item) => {
+                        resolve(item);
+                    });
             });
     });
 }
