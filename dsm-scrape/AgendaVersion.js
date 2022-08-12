@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const PlaintextAgendaSchema = new Schema({
+const AgendaVersionSchema = new Schema({
   meeting_code: {
     type: String,
     required: true,
@@ -16,4 +16,4 @@ const PlaintextAgendaSchema = new Schema({
   },
 });
 
-mongoose.model('plaintextAgenda', PlaintextAgendaSchema);
+mongoose.model('agendaVersion', AgendaVersionSchema);

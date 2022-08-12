@@ -120,9 +120,9 @@ controller.post('/councilMeeting/:id/update', (req, res) => {
         });
 });
 
-controller.get('/plaintextAgenda/:code', (req, res) => {
+controller.get('/agendaVersion/:code', (req, res) => {
     const code = req.params.code;
-    manager.getPlaintextAgendas(code)
+    manager.getAgendaVersions(code)
         .then((response) => {
             res.send(response);
         })
@@ -132,9 +132,9 @@ controller.get('/plaintextAgenda/:code', (req, res) => {
         });
 });
 
-controller.post('/plaintextAgenda', (req, res) => {
-    const plaintextAgenda = req.body;
-    manager.savePlaintextAgenda(plaintextAgenda)
+controller.post('/agendaVersion', (req, res) => {
+    const agendaVersion = req.body;
+    manager.saveAgendaVersion(agendaVersion)
         .then((response) => {
             res.send(response);
         })

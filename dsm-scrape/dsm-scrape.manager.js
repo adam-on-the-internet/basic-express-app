@@ -5,8 +5,8 @@ require('./CalendarEvent.model');
 const CalendarEvent = mongoose.model('calendarEvent');
 require('./CouncilMeeting.model');
 const CouncilMeeting = mongoose.model('councilMeeting');
-require('./PlaintextAgenda.model');
-const PlaintextAgenda = mongoose.model('plaintextAgenda');
+require('./AgendaVersion.model');
+const AgendaVersion = mongoose.model('agendaVersion');
 
 function getAllNewsPosts() {
     return new Promise((resolve, reject) => {
@@ -165,9 +165,9 @@ function updateCouncilMeeting(id, newItem) {
     });
 }
 
-function getPlaintextAgendas(code) {
+function getAgendaVersions(code) {
     return new Promise((resolve, reject) => {
-        PlaintextAgenda.find({meeting_code: code})
+        AgendaVersion.find({meeting_code: code})
             .sort({found_date: -1})
             .then((items) => {
                 resolve(items);
@@ -175,9 +175,9 @@ function getPlaintextAgendas(code) {
     });
 }
 
-function savePlaintextAgenda(item) {
+function saveAgendaVersion(item) {
     return new Promise((resolve, reject) => {
-        new PlaintextAgenda({
+        new AgendaVersion({
             meeting_code: item.meeting_code,
             plaintext: item.plaintext,
         })
@@ -199,8 +199,8 @@ module.exports = {
     getAllCouncilMeetings,
     checkCouncilMeeting,
     updateCouncilMeeting,
-    getPlaintextAgendas,
-    savePlaintextAgenda,
+    getAgendaVersions,
+    saveAgendaVersion,
 }
 
 function checkItem(item, resolve, reject) {
