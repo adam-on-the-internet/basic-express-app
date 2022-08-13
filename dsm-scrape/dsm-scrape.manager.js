@@ -197,7 +197,7 @@ function saveAgendaVersion(item) {
                     plaintext: item.plaintext,
                     version: version,
 
-                    links: items.links,
+                    links: item.links,
                     intro_text: item.intro_text,
 
                     checked: false,
