@@ -22,11 +22,11 @@ const AgendaVersionSchema = new Schema({
   },
   item_text: {
     type: String,
-    required: true,
+    required: false,
   },
   closing_text: {
     type: String,
-    required: true,
+    required: false,
   },
 
   version: {
