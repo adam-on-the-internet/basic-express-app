@@ -192,6 +192,7 @@ function saveAgendaVersion(item) {
                 const message = "Agenda Version found. ";
                 const logMessage = getLogMessage(message);
                 const version = items.length + 1;
+
                 new AgendaVersion({
                     meeting_code: item.meeting_code,
                     plaintext: item.plaintext,
