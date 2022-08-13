@@ -11,6 +11,24 @@ const AgendaVersionSchema = new Schema({
     required: true,
   },
 
+  links: [
+    {
+      type: String
+    }
+  ],
+  intro_text: {
+    type: String,
+    required: true,
+  },
+  // item_text: {
+  //   type: String,
+  //   required: true,
+  // },
+  // closing_text: {
+  //   type: String,
+  //   required: true,
+  // },
+
   version: {
     type: Number,
     required: true,
