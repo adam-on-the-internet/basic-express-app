@@ -195,6 +195,7 @@ function saveAgendaVersion(item) {
                 new AgendaVersion({
                     meeting_code: item.meeting_code,
                     plaintext: item.plaintext,
+
                     version: version,
 
                     links: item.links,
