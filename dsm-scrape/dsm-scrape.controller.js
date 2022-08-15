@@ -3,6 +3,7 @@ const controller = express.Router();
 const manager = require("./dsm-scrape.manager");
 
 controller.get('/newsPost', (req, res) => {
+    console.log("Getting news posts...");
     manager.getAllNewsPosts()
         .then((response) => {
             res.send(response);

@@ -10,8 +10,10 @@ const AgendaVersion = mongoose.model('agendaVersion');
 
 function getAllNewsPosts() {
     return new Promise((resolve, reject) => {
+        console.log("Retrieving news posts...");
         NewsPost.find({})
             .then((items) => {
+                console.log("Retrieved news posts...");
                 resolve(items);
             });
     });
