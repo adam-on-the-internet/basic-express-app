@@ -12,6 +12,7 @@ function getAllNewsPosts() {
     return new Promise((resolve, reject) => {
         console.log("Retrieving news posts...");
         NewsPost.find({})
+            .sort({found_date: -1})
             .then((items) => {
                 console.log("Retrieved news posts...");
                 resolve(items);
@@ -52,6 +53,7 @@ function saveNewsPost(newsPost) {
 function getAllCalendarEvents() {
     return new Promise((resolve, reject) => {
         CalendarEvent.find({})
+            .sort({found_date: -1})
             .then((items) => {
                 resolve(items);
             });
@@ -96,6 +98,7 @@ function saveCalendarEvent(calendarEvent) {
 function getAllCouncilMeetings() {
     return new Promise((resolve, reject) => {
         CouncilMeeting.find({})
+            .sort({found_date: -1})
             .then((items) => {
                 resolve(items);
             });
