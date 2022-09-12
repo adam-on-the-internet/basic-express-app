@@ -1,4 +1,9 @@
 const STORY_FOR_SYNONYMS = [
+    "Better {Call} Saul",
+    "{Monster} Prom",
+    "Monster {Prom}",
+    "{Breaking} Bad",
+    "Breaking {Bad}",
     "{Lords} of Waterdeep",
     "{Big} Brain Academy",
     "Big Brain {Academy}",
