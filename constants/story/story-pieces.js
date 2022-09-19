@@ -1,4 +1,9 @@
 const STORY_FOR_SYNONYMS = [
+    "Number One Song in {Heaven}",
+    "{Nope}",
+    "Where the {Crawdads} Sing",
+    "Where the Crawdads {Sing}",
+    "{Death} on the Nile",
     "Better {Call} Saul",
     "{Monster} Prom",
     "Monster {Prom}",
