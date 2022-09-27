@@ -1,4 +1,10 @@
 const STORY_FOR_SYNONYMS = [
+    "Thor: Love and {Thunder}",
+    "Top {Gun}: Maverick",
+    "{Top} Gun: Maverick",
+    "All the {Old} Knives",
+    "Jurassic World {Dominion}",
+    "Minions: The {Rise} of Gru",
     "Number One Song in {Heaven}",
     "{Nope}",
     "Where the {Crawdads} Sing",
