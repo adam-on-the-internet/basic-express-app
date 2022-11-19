@@ -280,8 +280,14 @@ function updateField(updateMessage, field, originalItem, newItem) {
 
 function updateFieldForList(updateMessage, field, originalItem, newItem) {
     if (originalItem[field] !== newItem[field]) {
-        const itemsRemoved = originalItem[field].filter((o) => newItem[field].indexOf(o) === -1);
-        const itemsAdded = newItem[field].filter((o) => originalItem[field].indexOf(o) === -1);
+        const itemsRemoved = originalItem[field]
+                .filter((o) => newItem[field]
+                .indexOf(o) === -1);
+        console.log(newItem);
+        console.log(field);
+        const itemsAdded = newItem[field]
+                .filter((o) => originalItem[field]
+                .indexOf(o) === -1);
         updateMessage += `${field} updated from ${originalItem[field].length} to ${newItem[field].length} item(s), added [${itemsAdded}], removed [${itemsRemoved}]. `;
         originalItem[field] = newItem[field];
     }
