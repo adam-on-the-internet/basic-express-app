@@ -279,16 +279,14 @@ function updateField(updateMessage, field, originalItem, newItem) {
 }
 
 function updateFieldForList(updateMessage, field, originalItem, newItem) {
+    // Temp fix because the list of links (usually like ["link"]) was coming in as a single string (like "link)
+    if (typeof newItem[field] === 'string') {
+        newItem[field] = [newItem[field]];
+    }
     if (originalItem[field] !== newItem[field]) {
         const itemsRemoved = originalItem[field]
                 .filter((o) => newItem[field]
                 .indexOf(o) === -1);
-        console.log(originalItem);
-        console.log(newItem);
-        console.log(field);
-        if (typeof newItem[field] === 'string') {
-            newItem[field] = [newItem[field]];
-        }
         const itemsAdded = newItem[field]
                 .filter((o) => originalItem[field]
                 .indexOf(o) === -1);
