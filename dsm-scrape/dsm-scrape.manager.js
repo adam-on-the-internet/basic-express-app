@@ -283,6 +283,7 @@ function updateFieldForList(updateMessage, field, originalItem, newItem) {
         const itemsRemoved = originalItem[field]
                 .filter((o) => newItem[field]
                 .indexOf(o) === -1);
+        console.log(originalItem);
         console.log(newItem);
         console.log(field);
         const itemsAdded = newItem[field]
