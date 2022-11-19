@@ -286,6 +286,9 @@ function updateFieldForList(updateMessage, field, originalItem, newItem) {
         console.log(originalItem);
         console.log(newItem);
         console.log(field);
+        if (typeof newItem[field] === 'string') {
+            newItem[field] = [newItem[field]];
+        }
         const itemsAdded = newItem[field]
                 .filter((o) => originalItem[field]
                 .indexOf(o) === -1);
