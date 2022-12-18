@@ -1,4 +1,7 @@
 const STORY_FOR_SYNONYMS = [
+    "{Glass} Onion",
+    "Glass {Onion}",
+    "The X-{Files}",
     "Thor: Love and {Thunder}",
     "Top {Gun}: Maverick",
     "{Top} Gun: Maverick",
