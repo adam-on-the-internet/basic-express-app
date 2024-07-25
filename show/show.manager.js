@@ -34,10 +34,14 @@ function getById(id) {
 
 function add(item) {
     return new Promise((resolve, reject) => {
+        console.log("about to validate show...");
         const errors = validator.checkForCreateErrors(item);
+        console.log("validated show...");
         if (errors.length > 0) {
+            console.log("found errors with show");
             reject(errors);
         } else {
+            console.log("submitting show");
             new Show({
                 title: item.title,
                 venue: item.venue,
