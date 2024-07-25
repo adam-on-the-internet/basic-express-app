@@ -17,6 +17,7 @@ function checkForEditErrors(item) {
 }
 
 function checkForGeneralErrors(item) {
+    const errors = [];
     if (boolUtil.hasNoValue(item.date)) {
         errors.push({ text: 'Please add a date' });
     }
