@@ -104,6 +104,9 @@ function setupControllers(app) {
 
   const dsmEventController = require('../dsm-event/dsm-event.controller');
   app.use('/dsmEvent', dsmEventController);
+
+  const showController = require('../show/show.controller');
+  app.use('/show', showController);
 }
 
 module.exports = {
