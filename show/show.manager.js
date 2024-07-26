@@ -17,10 +17,12 @@ function getAll() {
 function getUpcoming() {
     return new Promise((resolve, reject) => {
         // TODO just get the upcoming, based on current des moines datetime
+        const x = new Date();
+        const y = new Date();
         Show.find({
             date: {
-                $gte: new Date(),
-                $lte: new Date()
+                $gte: x,
+                $lte: y
             }
         })
             .then((all) => {
