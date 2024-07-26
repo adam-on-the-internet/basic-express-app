@@ -32,6 +32,17 @@ function getById(id) {
     });
 }
 
+function getDesMoinesDateTimeDetails() {
+    return new Promise((resolve, reject) => {
+        const chicago_datetime_str = new Date()
+            .toLocaleString("en-US", {timeZone: "America/Chicago"});
+        const datetimeDetails = {
+            rawDate: chicago_datetime_str
+        };
+        return resolve(datetimeDetails);
+    });
+}
+
 function add(item) {
     return new Promise((resolve, reject) => {
         const errors = validator.checkForCreateErrors(item);
@@ -97,6 +108,7 @@ function edit(item) {
 module.exports = {
     getAll,
     getById,
+    getDesMoinesDateTimeDetails,
     add,
     deleteOne,
     edit,

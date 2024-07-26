@@ -29,10 +29,14 @@ controller.get('/:id', (req, res) => {
 // TODO Get All Upcoming
 
 controller.get('/des-moines-datetime', (req, res) => {
-    const chicago_datetime_str = new Date()
-        .toLocaleString("en-US", {timeZone: "America/Chicago"});
-    console.log(chicago_datetime_str);
-    res.send(chicago_datetime_str);
+    manager.getDesMoinesDateTimeDetails()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
 });
 
 controller.post('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
