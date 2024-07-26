@@ -31,6 +31,7 @@ controller.get('/:id', (req, res) => {
 controller.get('/des-moines-datetime', (req, res) => {
     const chicago_datetime_str = new Date()
         .toLocaleString("en-US", {timeZone: "America/Chicago"});
+    console.log(chicago_datetime_str);
     res.send(chicago_datetime_str);
 });
 
