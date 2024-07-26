@@ -14,6 +14,17 @@ function getAll() {
     });
 }
 
+function getUpcoming() {
+    return new Promise((resolve, reject) => {
+        // TODO just get the upcoming, based on current des moines datetime
+        Show.find({})
+            .then((all) => {
+                const allReports = all.map(item => getReport(item));
+                resolve(allReports);
+            });
+    });
+}
+
 function getById(id) {
     return new Promise((resolve, reject) => {
         Show.findOne({
@@ -32,15 +43,13 @@ function getById(id) {
     });
 }
 
-function getDesMoinesDateTimeDetails() {
-    return new Promise((resolve, reject) => {
-        const chicago_datetime_str = new Date()
-            .toLocaleString("en-US", {timeZone: "America/Chicago"});
-        const datetimeDetails = {
-            rawDate: chicago_datetime_str
-        };
-        return resolve(datetimeDetails);
-    });
+function getCurrentDesMoinesDateTime() {
+    const chicago_datetime_str = new Date()
+        .toLocaleString("en-US", {timeZone: "America/Chicago"});
+    const datetimeDetails = {
+        rawDate: chicago_datetime_str
+    };
+    return datetimeDetails;
 }
 
 function add(item) {
@@ -107,6 +116,7 @@ function edit(item) {
 
 module.exports = {
     getAll,
+    getUpcoming,
     getById,
     getDesMoinesDateTimeDetails,
     add,
@@ -114,9 +124,15 @@ module.exports = {
     edit,
 };
 
-
 function getReport(item) {
     const report = copyUtil.copy(item);
     // At this layer, we can add calculated values to the Item.
     return report;
+}
+
+function getDesMoinesDateTimeDetails() {
+    return new Promise((resolve, reject) => {
+        const datetimeDetails = getCurrentDesMoinesDateTime();
+        return resolve(datetimeDetails);
+    });
 }

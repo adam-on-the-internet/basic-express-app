@@ -15,8 +15,7 @@ controller.get('/', (req, res) => {
 });
 
 controller.get('/upcoming', (req, res) => {
-    // TODO get UPCOMING only, based on current Des Moines datetime
-    manager.getAll()
+    manager.getUpcoming()
         .then((response) => {
             res.send(response);
         })
