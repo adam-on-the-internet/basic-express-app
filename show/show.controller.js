@@ -27,10 +27,8 @@ controller.get('/upcoming', (req, res) => {
 });
 
 controller.get('/des-moines-datetime', (req, res) => {
-    console.log("starting datetime calc")
     manager.getDesMoinesDateTimeDetails()
         .then((response) => {
-            console.log("returning datetime calc")
             res.send(response);
         })
         .catch((err) => {
