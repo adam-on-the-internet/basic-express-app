@@ -15,9 +15,17 @@ function getAll() {
 }
 
 function getUpcoming() {
+    MyModel
+
+
     return new Promise((resolve, reject) => {
         // TODO just get the upcoming, based on current des moines datetime
-        Show.find({})
+        Show.find({
+            date: {
+                $gte: new Date(),
+                $lte: new Date()
+            }
+        })
             .then((all) => {
                 const allReports = all.map(item => getReport(item));
                 resolve(allReports);
