@@ -14,9 +14,9 @@ controller.get('/', (req, res) => {
         });
 });
 
-controller.get('/:id', (req, res) => {
-    const id = req.params.id;
-    manager.getById(id)
+controller.get('/upcoming', (req, res) => {
+    // TODO get UPCOMING only, based on current Des Moines datetime
+    manager.getAll()
         .then((response) => {
             res.send(response);
         })
@@ -26,13 +26,23 @@ controller.get('/:id', (req, res) => {
         });
 });
 
-// TODO Get All Upcoming
-
 controller.get('/des-moines-datetime', (req, res) => {
     console.log("starting datetime calc")
     manager.getDesMoinesDateTimeDetails()
         .then((response) => {
             console.log("returning datetime calc")
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.get('/:id', (req, res) => {
+    const id = req.params.id;
+    manager.getById(id)
+        .then((response) => {
             res.send(response);
         })
         .catch((err) => {
