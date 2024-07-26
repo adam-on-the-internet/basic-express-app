@@ -26,6 +26,14 @@ controller.get('/:id', (req, res) => {
         });
 });
 
+// TODO Get All Upcoming
+
+controller.get('/des-moines-datetime', (req, res) => {
+    const chicago_datetime_str = new Date()
+        .toLocaleString("en-US", {timeZone: "America/Chicago"});
+    res.send(chicago_datetime_str);
+});
+
 controller.post('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const item = req.body;
     console.log("Beginning to add show...");
