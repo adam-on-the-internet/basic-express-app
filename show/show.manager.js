@@ -15,9 +15,6 @@ function getAll() {
 }
 
 function getUpcoming() {
-    MyModel
-
-
     return new Promise((resolve, reject) => {
         // TODO just get the upcoming, based on current des moines datetime
         Show.find({
