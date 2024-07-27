@@ -27,7 +27,7 @@ function getUpcoming() {
         })
             .then((all) => {
                 const allReports = all.map(item => getReport(item));
-                resolve(allReports);
+                resolve(allReports.concat([{date: "upcoming date", venue: "upcoming venue", title: "upcoming title"}]));
             });
     });
 }
