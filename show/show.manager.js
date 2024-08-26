@@ -16,18 +16,25 @@ function getAll() {
 
 function getUpcoming() {
     return new Promise((resolve, reject) => {
-        // TODO just get the upcoming, based on current des moines datetime
-        const x = new Date();
-        const y = new Date();
+        const dateDetails = getCurrentDesMoinesDateTime();
+        const currentDate = dateDetails.rawDateCurrent;
+        const oneMonthOutDate = dateDetails.rawDateOneMonthOut;
+        console.log("Current Date: " + currentDate);
+        console.log("One Month Out Date: " + currentDate);
         Show.find({
             date: {
-                $gte: x,
-                $lte: y
+                $gte: currentDate,
+                $lte: oneMonthOutDate
             }
         })
-            .then((all) => {
-                const allReports = all.map(item => getReport(item));
-                resolve(allReports.concat([{date: "upcoming date", venue: "upcoming venue", title: "upcoming title"}]));
+            .then((items) => {
+                const itemReports = items.map(item => getReport(item));
+                const sample = itemReports.concat([{
+                    date: "upcoming date",
+                    venue: "upcoming venue",
+                    title: "upcoming title"
+                }]);
+                resolve(sample);
             });
     });
 }
@@ -51,12 +58,17 @@ function getById(id) {
 }
 
 function getCurrentDesMoinesDateTime() {
-    const chicago_datetime_str = new Date()
-        .toLocaleString("en-US", {timeZone: "America/Chicago"});
-    const datetimeDetails = {
-        rawDate: chicago_datetime_str
+    const currentDate = new Date();
+    const currentDateString = convertDateToChicagoTimezoneString(currentDate);
+
+    const oneMonthOutDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1);
+    const oneMonthOutString = convertDateToChicagoTimezoneString(oneMonthOutDate);
+
+    return {
+        rawDate: currentDateString,
+        rawDateCurrent: currentDateString,
+        rawDateOneMonthOut: oneMonthOutString,
     };
-    return datetimeDetails;
 }
 
 function add(item) {
@@ -142,4 +154,9 @@ function getDesMoinesDateTimeDetails() {
         const datetimeDetails = getCurrentDesMoinesDateTime();
         return resolve(datetimeDetails);
     });
+}
+
+function convertDateToChicagoTimezoneString(currentDate) {
+    return currentDate
+        .toLocaleString("en-US", {timeZone: "America/Chicago"});
 }
