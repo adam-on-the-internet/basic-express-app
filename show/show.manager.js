@@ -202,10 +202,6 @@ function convertYYYYMMDDtoShowDate(item) {
     const date = showDatePieces[2];
     const showHourPieces = item.time.split(":")
     const hour = showHourPieces[0];
-    const minute = showDatePieces[1];
-    console.log("hour: " + hour);
-    console.log("minute: " + minute);
-    const builtDate = new Date(year, month, date, hour, minute);
-    console.log("Built Date: " + builtDate);
-    return builtDate;
+    const minute = showHourPieces[1];
+    return new Date(year, month, date, hour, minute);
 }
