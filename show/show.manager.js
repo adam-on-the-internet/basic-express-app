@@ -7,6 +7,7 @@ const copyUtil = require('../utilities/copy.util');
 function getAll() {
     return new Promise((resolve, reject) => {
         Show.find({})
+            .sort({date: -1})
             .then((all) => {
                 const allReports = all.map(item => getReport(item));
                 resolve(allReports);
@@ -183,7 +184,7 @@ function getDesMoinesDateTimeDetails() {
     });
 }
 
-function convertDateToChicagoTimezoneString(currentDate) {
-    return currentDate
+function convertDateToChicagoTimezoneString(date) {
+    return date
         .toLocaleString("en-US", {timeZone: "America/Chicago"});
 }
