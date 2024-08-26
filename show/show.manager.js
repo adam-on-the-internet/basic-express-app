@@ -183,6 +183,9 @@ function getReport(item) {
     // At this layer, we can add calculated values to the Item.
     report.showDateYear = item.showDate.getFullYear()
     report.showDateMonth = item.showDate.getMonth() + 1
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+        "July", "August", "September", "October", "November", "December"];
+    report.showDateName = monthNames[item.showDate.getMonth()]
     report.showDateDay = item.showDate.getDate()
     report.showDateHour = item.showDate.getHours()
     report.showDateMinute = item.showDate.getMinutes()
