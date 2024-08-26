@@ -19,8 +19,6 @@ function getUpcoming() {
         const dateDetails = getCurrentDesMoinesDateTime();
         const currentDate = dateDetails.rawDateCurrent;
         const oneMonthOutDate = dateDetails.rawDateOneMonthOut;
-        console.log("Current Date: " + currentDate);
-        console.log("One Month Out Date: " + currentDate);
         Show.find({
             date: {
                 $gte: currentDate,
@@ -29,12 +27,39 @@ function getUpcoming() {
         })
             .then((items) => {
                 const itemReports = items.map(item => getReport(item));
-                const sample = itemReports.concat([{
-                    date: "upcoming date",
-                    venue: "upcoming venue",
-                    title: "upcoming title"
-                }]);
-                resolve(sample);
+                resolve(itemReports);
+            });
+    });
+}
+
+function getFuture() {
+    return new Promise((resolve, reject) => {
+        const dateDetails = getCurrentDesMoinesDateTime();
+        const currentDate = dateDetails.rawDateCurrent;
+        Show.find({
+            date: {
+                $gte: currentDate
+            }
+        })
+            .then((items) => {
+                const itemReports = items.map(item => getReport(item));
+                resolve(itemReports);
+            });
+    });
+}
+
+function getPast() {
+    return new Promise((resolve, reject) => {
+        const dateDetails = getCurrentDesMoinesDateTime();
+        const currentDate = dateDetails.rawDateCurrent;
+        Show.find({
+            date: {
+                $lte: currentDate
+            }
+        })
+            .then((items) => {
+                const itemReports = items.map(item => getReport(item));
+                resolve(itemReports);
             });
     });
 }
@@ -136,6 +161,8 @@ function edit(item) {
 module.exports = {
     getAll,
     getUpcoming,
+    getFuture,
+    getPast,
     getById,
     getDesMoinesDateTimeDetails,
     add,

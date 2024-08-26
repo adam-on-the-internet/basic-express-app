@@ -25,6 +25,28 @@ controller.get('/upcoming', (req, res) => {
         });
 });
 
+controller.get('/past', (req, res) => {
+    manager.getPast()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
+controller.get('/future', (req, res) => {
+    manager.getFuture()
+        .then((response) => {
+            res.send(response);
+        })
+        .catch((err) => {
+            res.statusCode = 500;
+            res.send(err);
+        });
+});
+
 controller.get('/des-moines-datetime', (req, res) => {
     manager.getDesMoinesDateTimeDetails()
         .then((response) => {
