@@ -8,6 +8,10 @@ const ShowSchema = new Schema({
     },
     date: {
         type: String,
+        required: false
+    },
+    showDate: {
+        type: Date,
         required: true
     },
     venue: {

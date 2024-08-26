@@ -7,7 +7,7 @@ const copyUtil = require('../utilities/copy.util');
 function getAll() {
     return new Promise((resolve, reject) => {
         Show.find({})
-            .sort({date: -1})
+            .sort({showDate: -1})
             .then((all) => {
                 const allReports = all.map(item => getReport(item));
                 resolve(allReports);
@@ -21,7 +21,7 @@ function getUpcoming() {
         const currentDate = dateDetails.rawDateCurrent;
         const oneMonthOutDate = dateDetails.rawDateOneMonthOut;
         Show.find({
-            date: {
+            showDate: {
                 $gte: currentDate,
                 $lte: oneMonthOutDate
             }
@@ -38,7 +38,7 @@ function getFuture() {
         const dateDetails = getCurrentDesMoinesDateTime();
         const currentDate = dateDetails.rawDateCurrent;
         Show.find({
-            date: {
+            showDate: {
                 $gte: currentDate
             }
         })
@@ -54,7 +54,7 @@ function getPast() {
         const dateDetails = getCurrentDesMoinesDateTime();
         const currentDate = dateDetails.rawDateCurrent;
         Show.find({
-            date: {
+            showDate: {
                 $lte: currentDate
             }
         })
@@ -103,10 +103,12 @@ function add(item) {
         if (errors.length > 0) {
             reject(errors);
         } else {
+            const showDatePieces = item.date.split("-")
+            const showDate = new Date(showDatePieces[0], showDatePieces[1], showDatePieces[2]);
             new Show({
                 title: item.title,
                 venue: item.venue,
-                date: item.date,
+                showDate: showDate,
             })
                 .save()
                 .then((item) => {
@@ -145,9 +147,12 @@ function edit(item) {
                             message: `Failed to find item`
                         });
                     } else {
+                        const showDatePieces = item.date.split("-")
+                        const showDate = new Date(showDatePieces[0], showDatePieces[1], showDatePieces[2]);
+
                         foundItem.title = item.title;
                         foundItem.venue = item.venue;
-                        foundItem.date = item.date;
+                        foundItem.showDate = showDate;
 
                         foundItem.save()
                             .then((response) => {
