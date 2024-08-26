@@ -72,7 +72,6 @@ controller.get('/:id', (req, res) => {
 
 controller.post('/', authUtil.jwtAuthenticated, authUtil.jwtAdmin, (req, res) => {
     const item = req.body;
-    console.log("Beginning to add show...");
     manager.add(item)
         .then((response) => {
             res.send(response);
