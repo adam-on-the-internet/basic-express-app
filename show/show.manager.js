@@ -187,7 +187,14 @@ function getReport(item) {
         "July", "August", "September", "October", "November", "December"];
     report.showDateMonthName = monthNames[item.showDate.getMonth()]
     report.showDateDay = item.showDate.getDate()
-    report.showDateHour = item.showDate.getHours()
+    const militaryHour = item.showDate.getHours();
+    if (militaryHour > 12) {
+        report.showDateHour = militaryHour - 12
+        report.showAmOrPm = "pm"
+    } else {
+        report.showDateHour = militaryHour
+        report.showAmOrPm = "am"
+    }
     report.showDateMinute = item.showDate.getMinutes()
 
     return report;
