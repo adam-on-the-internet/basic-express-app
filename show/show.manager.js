@@ -195,7 +195,12 @@ function getReport(item) {
         report.showDateHour = militaryHour
         report.showAmOrPm = "am"
     }
-    report.showDateMinute = item.showDate.getMinutes()
+    const minute = item.showDate.getMinutes();
+    if (minute.toString().length === 1) {
+        report.showDateMinute = "0" + minute
+    } else {
+        report.showDateMinute = minute
+    }
 
     return report;
 }
