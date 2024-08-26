@@ -181,13 +181,12 @@ function getReport(item) {
     const report = copyUtil.copy(item);
 
     // At this layer, we can add calculated values to the Item.
-    report.showDateYear = item.showDate.year
-    report.showDateMonth = item.showDate.month
-    report.showDateDay = item.showDate.date
-    report.showDateHour = item.showDate.hour
-    report.showDateMinute = item.showDate.minute
+    report.showDateYear = item.showDate.getFullYear()
+    report.showDateMonth = item.showDate.getMonth()
+    report.showDateDay = item.showDate.getDate()
+    report.showDateHour = item.showDate.getHours()
+    report.showDateMinute = item.showDate.getMinutes()
 
-    console.log(report)
     return report;
 }
 
