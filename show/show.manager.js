@@ -103,8 +103,7 @@ function add(item) {
         if (errors.length > 0) {
             reject(errors);
         } else {
-            const showDatePieces = item.date.split("-")
-            const showDate = new Date(showDatePieces[0], showDatePieces[1], showDatePieces[2]);
+            const showDate = convertYYYYMMDDtoShowDate(item);
             new Show({
                 title: item.title,
                 venue: item.venue,
@@ -147,8 +146,7 @@ function edit(item) {
                             message: `Failed to find item`
                         });
                     } else {
-                        const showDatePieces = item.date.split("-")
-                        const showDate = new Date(showDatePieces[0], showDatePieces[1], showDatePieces[2]);
+                        const showDate = convertYYYYMMDDtoShowDate(item);
 
                         foundItem.title = item.title;
                         foundItem.venue = item.venue;
@@ -192,4 +190,9 @@ function getDesMoinesDateTimeDetails() {
 function convertDateToChicagoTimezoneString(date) {
     return date
         .toLocaleString("en-US", {timeZone: "America/Chicago"});
+}
+
+function convertYYYYMMDDtoShowDate(item) {
+    const showDatePieces = item.date.split("-")
+    return new Date(showDatePieces[0], showDatePieces[1] - 1, showDatePieces[2]);
 }
