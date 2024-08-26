@@ -7,7 +7,7 @@ const copyUtil = require('../utilities/copy.util');
 function getAll() {
     return new Promise((resolve, reject) => {
         Show.find({})
-            .sort({showDate: -1})
+            .sort({showDate: 1})
             .then((all) => {
                 const allReports = all.map(item => getReport(item));
                 resolve(allReports);
@@ -26,6 +26,7 @@ function getUpcoming() {
                 $lte: oneMonthOutDate
             }
         })
+            .sort({showDate: 1})
             .then((items) => {
                 const itemReports = items.map(item => getReport(item));
                 resolve(itemReports);
@@ -42,6 +43,7 @@ function getFuture() {
                 $gte: currentDate
             }
         })
+            .sort({showDate: 1})
             .then((items) => {
                 const itemReports = items.map(item => getReport(item));
                 resolve(itemReports);
@@ -58,6 +60,7 @@ function getPast() {
                 $lte: currentDate
             }
         })
+            .sort({showDate: 1})
             .then((items) => {
                 const itemReports = items.map(item => getReport(item));
                 resolve(itemReports);
@@ -117,19 +120,6 @@ function add(item) {
     });
 }
 
-function deleteOne(id) {
-    return new Promise((resolve, reject) => {
-        Show.deleteOne({
-            _id: id
-        })
-            .then(() => {
-                resolve({
-                    message: `Item with given id deleted or never existed`
-                });
-            });
-    });
-}
-
 function edit(item) {
     return new Promise((resolve, reject) => {
         const errors = validator.checkForEditErrors(item);
@@ -159,6 +149,19 @@ function edit(item) {
                     }
                 });
         }
+    });
+}
+
+function deleteOne(id) {
+    return new Promise((resolve, reject) => {
+        Show.deleteOne({
+            _id: id
+        })
+            .then(() => {
+                resolve({
+                    message: `Item with given id deleted or never existed`
+                });
+            });
     });
 }
 
