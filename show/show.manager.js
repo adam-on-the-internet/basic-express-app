@@ -187,6 +187,7 @@ function getReport(item) {
     report.showDateHour = item.showDate.hour
     report.showDateMinute = item.showDate.minute
 
+    console.log(report)
     return report;
 }
 
