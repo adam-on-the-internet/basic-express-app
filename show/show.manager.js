@@ -90,7 +90,7 @@ function getCurrentDesMoinesDateTime() {
     const currentDate = new Date();
     const currentDateString = convertDateToChicagoTimezoneString(currentDate);
 
-    const oneMonthOutDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, 1);
+    const oneMonthOutDate = new Date(currentDate.getFullYear(), currentDate.getMonth() + 2, currentDate.getDate() + 1);
     const oneMonthOutString = convertDateToChicagoTimezoneString(oneMonthOutDate);
 
     return {
