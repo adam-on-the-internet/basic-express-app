@@ -197,5 +197,11 @@ function convertDateToChicagoTimezoneString(date) {
 
 function convertYYYYMMDDtoShowDate(item) {
     const showDatePieces = item.date.split("-")
-    return new Date(showDatePieces[0], showDatePieces[1] - 1, showDatePieces[2]);
+    const year = showDatePieces[0];
+    const month = showDatePieces[1] - 1;
+    const date = showDatePieces[2];
+    const showHourPieces = item.time.split(":")
+    const hour = showHourPieces[0];
+    const minute = showDatePieces[1];
+    return new Date(year, month, date, hour, minute);
 }

@@ -21,6 +21,9 @@ function checkForGeneralErrors(item) {
     if (boolUtil.hasNoValue(item.date)) {
         errors.push({ text: 'Please add a date' });
     }
+    if (boolUtil.hasNoValue(item.time)) {
+        errors.push({ text: 'Please add a time' });
+    }
     if (boolUtil.hasNoValue(item.venue)) {
         errors.push({ text: 'Please add a venue' });
     }
