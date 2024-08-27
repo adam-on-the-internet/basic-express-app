@@ -199,12 +199,12 @@ function getReport(item) {
         "July", "August", "September", "October", "November", "December"];
     report.showDateMonthName = monthNames[item.showDate.getMonth()]
     report.showDateDay = item.showDate.getDate()
-    const militaryHour = item.showDate.getHours();
-    if (militaryHour > 12) {
-        report.showDateHour = militaryHour - 12
+    const militaryShowHour = item.showDate.getHours();
+    if (militaryShowHour > 12) {
+        report.showDateHour = militaryShowHour - 12
         report.showAmOrPm = "pm"
     } else {
-        report.showDateHour = militaryHour
+        report.showDateHour = militaryShowHour
         report.showAmOrPm = "am"
     }
     const minute = item.showDate.getMinutes();
@@ -212,6 +212,20 @@ function getReport(item) {
         report.showDateMinute = "0" + minute
     } else {
         report.showDateMinute = minute
+    }
+    const militaryDoorHour = item.doorDate.getHours();
+    if (militaryDoorHour > 12) {
+        report.doorDateHour = militaryDoorHour - 12
+        report.doorAmOrPm = "pm"
+    } else {
+        report.doorDateHour = militaryDoorHour
+        report.doorAmOrPm = "am"
+    }
+    const doorMinute = item.doorDate.getMinutes();
+    if (doorMinute.toString().length === 1) {
+        report.doorDateMinute = "0" + doorMinute
+    } else {
+        report.doorDateMinute = doorMinute
     }
 
     return report;
