@@ -106,12 +106,23 @@ function add(item) {
         if (errors.length > 0) {
             reject(errors);
         } else {
-            const showDate = convertYYYYMMDDtoShowDate(item);
-            new Show({
+            const showDate = convertYYYYMMDDtoShowDate(item.date, item.time);
+            let doorDate = undefined;
+            if (item.doorTime) {
+                doorDate = convertYYYYMMDDtoShowDate(item.date, item.doorTime);
+            }
+            const showData = {
                 title: item.title,
+                subtitle: item.subtitle,
+                genre: item.genre,
                 venue: item.venue,
+                showDetailsURL: item.showDetailsURL,
+                ageLimit: item.ageLimit,
+                ticketPrice: item.ticketPrice,
                 showDate: showDate,
-            })
+                doorDate: doorDate,
+            };
+            new Show(showData)
                 .save()
                 .then((item) => {
                     resolve(item);
@@ -136,7 +147,8 @@ function edit(item) {
                             message: `Failed to find item`
                         });
                     } else {
-                        const showDate = convertYYYYMMDDtoShowDate(item);
+                        // TODO need to add more fields to Edit
+                        const showDate = convertYYYYMMDDtoShowDate(item.date, item.time);
 
                         foundItem.title = item.title;
                         foundItem.venue = item.venue;
@@ -217,13 +229,13 @@ function convertDateToChicagoTimezoneString(date) {
         .toLocaleString("en-US", {timeZone: "America/Chicago"});
 }
 
-function convertYYYYMMDDtoShowDate(item) {
-    const showDatePieces = item.date.split("-")
+function convertYYYYMMDDtoShowDate(date, time) {
+    const showDatePieces = date.split("-")
     const year = showDatePieces[0];
     const month = showDatePieces[1] - 1;
-    const date = showDatePieces[2];
-    const showHourPieces = item.time.split(":")
+    const day = showDatePieces[2];
+    const showHourPieces = time.split(":")
     const hour = showHourPieces[0];
     const minute = showHourPieces[1];
-    return new Date(year, month, date, hour, minute);
+    return new Date(year, month, day, hour, minute);
 }
