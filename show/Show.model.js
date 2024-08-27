@@ -6,7 +6,11 @@ const ShowSchema = new Schema({
         type: String,
         required: true
     },
-    date: {
+    subtitle: {
+        type: String,
+        required: false
+    },
+    genre: {
         type: String,
         required: false
     },
@@ -14,9 +18,25 @@ const ShowSchema = new Schema({
         type: Date,
         required: true
     },
+    doorDate: {
+        type: Date,
+        required: false
+    },
     venue: {
         type: String,
         required: true
+    },
+    showDetailsURL: {
+        type: String,
+        required: false
+    },
+    ageLimit: {
+        type: String,
+        required: false
+    },
+    ticketPrice: {
+        type: String,
+        required: false
     },
     dateAdded: {
         type: Date,
