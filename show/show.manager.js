@@ -231,7 +231,7 @@ function getReport(item) {
         } else {
             report.doorDateMinute = doorMinute
         }
-        report.doorDateDisplay = `${report.doorDateHour}:${report.doorDateMinute}${report.doorAmOrPm}
+        report.doorDateDisplay = `${report.doorDateHour}:${report.doorDateMinute}${report.doorAmOrPm}`
     }
 
     return report;
