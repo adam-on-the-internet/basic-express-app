@@ -213,19 +213,25 @@ function getReport(item) {
     } else {
         report.showDateMinute = minute
     }
-    const militaryDoorHour = item.doorDate.getHours();
-    if (militaryDoorHour > 12) {
-        report.doorDateHour = militaryDoorHour - 12
-        report.doorAmOrPm = "pm"
-    } else {
-        report.doorDateHour = militaryDoorHour
-        report.doorAmOrPm = "am"
-    }
-    const doorMinute = item.doorDate.getMinutes();
-    if (doorMinute.toString().length === 1) {
-        report.doorDateMinute = "0" + doorMinute
-    } else {
-        report.doorDateMinute = doorMinute
+    report.showDateDisplay = `${report.showDateMonthName} ${report.showDateDay}, ${report.showDateYear}`
+    report.showTimeDisplay = `${report.showDateHour}:${report.showDateMinute}${report.showAmOrPm}`
+
+    if (item.doorDate) {
+        const militaryDoorHour = item.doorDate.getHours();
+        if (militaryDoorHour > 12) {
+            report.doorDateHour = militaryDoorHour - 12
+            report.doorAmOrPm = "pm"
+        } else {
+            report.doorDateHour = militaryDoorHour
+            report.doorAmOrPm = "am"
+        }
+        const doorMinute = item.doorDate.getMinutes();
+        if (doorMinute.toString().length === 1) {
+            report.doorDateMinute = "0" + doorMinute
+        } else {
+            report.doorDateMinute = doorMinute
+        }
+        report.doorDateDisplay = `${report.doorDateHour}:${report.doorDateMinute}${report.doorAmOrPm}
     }
 
     return report;
