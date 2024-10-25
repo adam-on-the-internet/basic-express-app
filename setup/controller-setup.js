@@ -107,6 +107,9 @@ function setupControllers(app) {
 
   const showController = require('../show/show.controller');
   app.use('/show', showController);
+
+  const venueController = require('../venue/venue.controller');
+  app.use('/venue', venueController);
 }
 
 module.exports = {
